@@ -4,7 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title inertia>{{ config('app.name', 'Laravel') }}</title>
+        @if ( config('app.env') == 'production')
+        
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+        @endif
+
+        <title inertia>{{ config('app.name', 'Lamacca') }}</title>
 
         <!-- Scripts -->
         @routes
