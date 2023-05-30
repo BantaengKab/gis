@@ -5,7 +5,7 @@ import {
   mdiSquareEditOutline,
   mdiTrashCan,
   mdiAlertBoxOutline,
-  mdiSignText,
+  mdiAccountCash,
 } from "@mdi/js"
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue"
 import SectionMain from "@/Components/SectionMain.vue"
@@ -18,7 +18,7 @@ import Pagination from "@/Components/Admin/Pagination.vue"
 import Sort from "@/Components/Admin/Sort.vue"
 
 const props = defineProps({
-  sektors: {
+  investors: {
     type: Object,
     default: () => ({}),
   },
@@ -40,23 +40,23 @@ const formDelete = useForm({})
 
 function destroy(id) {
   if (confirm("Are you sure you want to delete?")) {
-    formDelete.delete(route("sektor.destroy", id))
+    formDelete.delete(route("investor.destroy", id))
   }
 }
 </script>
 
 <template>
   <LayoutAuthenticated>
-    <Head title="Sektors" />
+    <Head title="Investors" />
     <SectionMain>
       <SectionTitleLineWithButton
-        :icon="mdiSignText"
-        title="Sektors"
+        :icon="mdiAccountCash"
+        title="Investors"
         main
       >
         <BaseButton
           v-if="can.delete"
-          :route-name="route('sektor.create')"
+          :route-name="route('investor.create')"
           :icon="mdiPlus"
           label="Add"
           color="info"
@@ -72,7 +72,7 @@ function destroy(id) {
         {{ $page.props.flash.message }}
       </NotificationBar>
       <CardBox class="mb-6" has-table>
-        <form @submit.prevent="form.get(route('sektor.index'))">
+        <form @submit.prevent="form.get(route('investor.index'))">
           <div class="py-2 flex">
             <div class="flex pl-4">
               <input
@@ -104,17 +104,23 @@ function destroy(id) {
           <thead>
             <tr>
               <th>
-                <Sort label="Nama Sektor" attribute="nama" />
+                <Sort label="Nama" attribute="nama" />
+              </th>
+               <th>
+                <Sort label="Alamat" attribute="alamat" />
+              </th>
+               <th>
+                <Sort label="No.HP" attribute="no_hp" />
               </th>
               <th v-if="can.edit || can.delete">Actions</th>
             </tr>
           </thead>
 
           <tbody>
-            <tr v-for="sektor in sektors.data" :key="sektor.id">
+            <tr v-for="investor in investors.data" :key="investor.id">
               <td data-label="Nama">
                 <Link
-                  :href="route('sektor.show', sektor.id)"
+                  :href="route('investor.show', investor.id)"
                   class="
                     no-underline
                     hover:underline
@@ -122,8 +128,14 @@ function destroy(id) {
                     dark:text-cyan-400
                   "
                 >
-                  {{ sektor.nama }}
+                  {{ investor.nama }}
                 </Link>
+              </td>
+              <td data-label="Alamat">
+                  {{ investor.alamat }}
+              </td>
+              <td data-label="No.HP">
+                  {{ investor.no_hp }}
               </td>
               <td
                 v-if="can.edit || can.delete"
@@ -132,7 +144,7 @@ function destroy(id) {
                 <BaseButtons type="justify-start lg:justify-end" no-wrap>
                   <BaseButton
                     v-if="can.edit"
-                    :route-name="route('sektor.edit', sektor.id)"
+                    :route-name="route('investor.edit', investor.id)"
                     color="info"
                     :icon="mdiSquareEditOutline"
                     small
@@ -142,7 +154,7 @@ function destroy(id) {
                     color="danger"
                     :icon="mdiTrashCan"
                     small
-                    @click="destroy(sektor.id)"
+                    @click="destroy(investor.id)"
                   />
                 </BaseButtons>
               </td>
@@ -150,7 +162,7 @@ function destroy(id) {
           </tbody>
         </table>
         <div class="py-4">
-          <Pagination :data="sektors" />
+          <Pagination :data="investors" />
         </div>
       </CardBox>
     </SectionMain>

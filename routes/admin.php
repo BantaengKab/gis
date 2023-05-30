@@ -9,6 +9,7 @@ Route::group([
     Route::resource('role', 'RoleController');
     Route::resource('permission', 'PermissionController');
     Route::resource('sektor', 'SektorController');
+    Route::resource('investor', 'InvestorController');
     Route::resource('menu', 'MenuController')->except([
         'show'
     ]);
