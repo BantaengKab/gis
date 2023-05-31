@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3"
 import {
-  mdiAccountCash,
+  mdiMapMarkerRadius,
   mdiArrowLeftBoldOutline
 } from "@mdi/js"
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue"
@@ -14,32 +14,33 @@ import BaseButton from '@/Components/BaseButton.vue'
 import BaseButtons from '@/Components/BaseButtons.vue'
 
 const props = defineProps({
-  investor: {
+
+  sektor: {
     type: Object,
     default: () => ({}),
   },
 })
 
 const form = useForm({
-  _method: 'put',
-  nama: props.investor.nama,
-  alamat: props.investor.alamat,
-  no_hp: props.investor.no_hp,
-  
+  nama: '',
+  alamat: '',
+  lat: '',
+  long: '',
+  sektor_id: '',
 })
 </script>
 
 <template>
   <LayoutAuthenticated>
-    <Head title="Update Investor" />
+    <Head title="Create Peluang" />
     <SectionMain>
       <SectionTitleLineWithButton
-        :icon="mdiAccountCash"
-        title="Update Investor"
+        :icon="mdiMapMarkerRadius"
+        title="Add Peluang"
         main
       >
         <BaseButton
-          :route-name="route('investor.index')"
+          :route-name="route('peluang.index')"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"
@@ -49,8 +50,26 @@ const form = useForm({
       </SectionTitleLineWithButton>
       <CardBox
         form
-        @submit.prevent="form.post(route('investor.update', props.investor.id))"
+        @submit.prevent="form.post(route('peluang.store'))"
       >
+       <FormField
+          label="Sektor"
+          :class="{ 'text-red-400': form.errors.sektor_id }"
+        >
+       <FormControl
+            v-model="form.sektor_id"
+            type="select"
+            placeholder="Pilih Sektor"
+            :error="form.errors.sektor_id"
+            :options="sektor"
+          >
+            <div class="text-red-400 text-sm" v-if="form.errors.sektor_id">
+              {{ form.errors.sektor_id }}
+            </div>
+            
+          </FormControl>
+           </FormField>
+
         <FormField
           label="Nama"
           :class="{ 'text-red-400': form.errors.nama }"
@@ -58,7 +77,7 @@ const form = useForm({
           <FormControl
             v-model="form.nama"
             type="text"
-            placeholder="Enter Name"
+            placeholder="Enter Nama"
             :error="form.errors.nama"
           >
             <div class="text-red-400 text-sm" v-if="form.errors.nama">
@@ -67,7 +86,7 @@ const form = useForm({
           </FormControl>
         </FormField>
 
-        <FormField
+         <FormField
           label="Alamat"
           :class="{ 'text-red-400': form.errors.alamat }"
         >
@@ -84,21 +103,37 @@ const form = useForm({
         </FormField>
 
         <FormField
-          label="No.HP"
-          :class="{ 'text-red-400': form.errors.no_hp }"
+          label="Latitude"
+          :class="{ 'text-red-400': form.errors.lat }"
         >
           <FormControl
-            v-model="form.no_hp"
+            v-model="form.lat"
             type="text"
-            placeholder="Enter No.HP"
-            :error="form.errors.no_hp"
+            placeholder="Enter Latitude"
+            :error="form.errors.lat"
           >
-            <div class="text-red-400 text-sm" v-if="form.errors.no_hp">
-              {{ form.errors.no_hp }}
+            <div class="text-red-400 text-sm" v-if="form.errors.lat">
+              {{ form.errors.lat }}
             </div>
           </FormControl>
         </FormField>
-        
+
+         <FormField
+          label="Longitude"
+          :class="{ 'text-red-400': form.errors.long }"
+        >
+          <FormControl
+            v-model="form.long"
+            type="text"
+            placeholder="Enter Longitude"
+            :error="form.errors.long"
+          >
+            <div class="text-red-400 text-sm" v-if="form.errors.long">
+              {{ form.errors.long }}
+            </div>
+          </FormControl>
+        </FormField>
+
         <template #footer>
           <BaseButtons>
             <BaseButton

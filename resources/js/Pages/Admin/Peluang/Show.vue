@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3"
 import {
-  mdiAccountCash,
+  mdiMapMarkerRadius,
   mdiArrowLeftBoldOutline,
 } from "@mdi/js"
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue"
@@ -11,7 +11,11 @@ import CardBox from "@/Components/CardBox.vue"
 import BaseButton from "@/Components/BaseButton.vue"
 
 const props = defineProps({
-  investor: {
+  peluang: {
+    type: Object,
+    default: () => ({}),
+  },
+  sektor: {
     type: Object,
     default: () => ({}),
   },
@@ -20,15 +24,15 @@ const props = defineProps({
 
 <template>
   <LayoutAuthenticated>
-    <Head title="View Investor" />
+    <Head title="View Peluang" />
     <SectionMain>
       <SectionTitleLineWithButton
-        :icon="mdiAccountCash"
-        title="View Investor"
+        :icon="mdiMapMarkerRadius"
+        title="View Peluang"
         main
       >
         <BaseButton
-          :route-name="route('investor.index')"
+          :route-name="route('peluang.index')"
           :icon="mdiArrowLeftBoldOutline"
           label="Back"
           color="white"
@@ -39,6 +43,25 @@ const props = defineProps({
       <CardBox class="mb-6">
         <table>
           <tbody>
+
+            <tr>
+              <td
+                class="
+                  p-4
+                  pl-8
+                  text-slate-500
+                  dark:text-slate-400
+                  hidden
+                  lg:block
+                "
+              >
+                Sektor
+              </td>
+              <td data-label="sektor">
+                {{ sektor.nama }}
+              </td>
+            </tr>
+
             <tr>
               <td
                 class="
@@ -53,7 +76,7 @@ const props = defineProps({
                 Nama
               </td>
               <td data-label="Nama">
-                {{ investor.nama }}
+                {{ peluang.nama }}
               </td>
             </tr>
 
@@ -71,7 +94,7 @@ const props = defineProps({
                 Alamat
               </td>
               <td data-label="Alamat">
-                {{ investor.alamat }}
+                {{ peluang.alamat }}
               </td>
             </tr>
 
@@ -86,12 +109,31 @@ const props = defineProps({
                   lg:block
                 "
               >
-                No.HP
+                Latitude
               </td>
-              <td data-label="no_hp">
-                {{ investor.no_hp }}
+              <td data-label="lat">
+                {{ peluang.lat }}
               </td>
             </tr>
+            
+             <tr>
+              <td
+                class="
+                  p-4
+                  pl-8
+                  text-slate-500
+                  dark:text-slate-400
+                  hidden
+                  lg:block
+                "
+              >
+                Longitude
+              </td>
+              <td data-label="long">
+                {{ peluang.long }}
+              </td>
+            </tr>
+
 
             <tr>
               <td
@@ -107,7 +149,7 @@ const props = defineProps({
                 Created
               </td>
               <td data-label="Created">
-                {{ new Date(investor.created_at).toLocaleString() }}
+                {{ new Date(peluang.created_at).toLocaleString() }}
               </td>
             </tr>
           </tbody>

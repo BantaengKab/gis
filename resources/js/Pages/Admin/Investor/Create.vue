@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3"
 import {
-  mdiAccountKey,
+  mdiAccountCash,
   mdiArrowLeftBoldOutline
 } from "@mdi/js"
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue"
@@ -25,7 +25,7 @@ const form = useForm({
     <Head title="Create Investor" />
     <SectionMain>
       <SectionTitleLineWithButton
-        :icon="mdiAccountKey"
+        :icon="mdiAccountCash"
         title="Add Investor"
         main
       >

@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3"
 import {
-  mdiAccountKey,
+  mdiSignText,
   mdiArrowLeftBoldOutline
 } from "@mdi/js"
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue"
@@ -31,7 +31,7 @@ const form = useForm({
     <Head title="Update sektor" />
     <SectionMain>
       <SectionTitleLineWithButton
-        :icon="mdiAccountKey"
+        :icon="mdiSignText"
         title="Update sektor"
         main
       >

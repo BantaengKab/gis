@@ -1,7 +1,7 @@
 <script setup>
 import { Head, Link, useForm } from "@inertiajs/vue3"
 import {
-  mdiAccountKey,
+  mdiSignText,
   mdiArrowLeftBoldOutline,
 } from "@mdi/js"
 import LayoutAuthenticated from "@/Layouts/LayoutAuthenticated.vue"
@@ -23,7 +23,7 @@ const props = defineProps({
     <Head title="View sektor" />
     <SectionMain>
       <SectionTitleLineWithButton
-        :icon="mdiAccountKey"
+        :icon="mdiSignText"
         title="View sektor"
         main
       >
