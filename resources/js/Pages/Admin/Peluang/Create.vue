@@ -19,6 +19,10 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  wilayah: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 
 const form = useForm({
@@ -27,6 +31,7 @@ const form = useForm({
   lat: '',
   long: '',
   sektor_id: '',
+  wilayah_id: '',
 })
 </script>
 
@@ -65,6 +70,24 @@ const form = useForm({
           >
             <div class="text-red-400 text-sm" v-if="form.errors.sektor_id">
               {{ form.errors.sektor_id }}
+            </div>
+            
+          </FormControl>
+           </FormField>
+
+           <FormField
+          label="Wilayah"
+          :class="{ 'text-red-400': form.errors.wilayah_id }"
+        >
+       <FormControl
+            v-model="form.wilayah_id"
+            type="select"
+            placeholder="Pilih Wilayah"
+            :error="form.errors.wilayah_id"
+            :options="wilayah"
+          >
+            <div class="text-red-400 text-sm" v-if="form.errors.wilayah_id">
+              {{ form.errors.wilayah_id }}
             </div>
             
           </FormControl>

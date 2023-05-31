@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Peluang;
 use App\Models\Sektor;
+use App\Models\Wilayah;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -63,8 +64,10 @@ class PeluangController extends Controller
     public function create()
     {
         $sektor = Sektor::all()->pluck("nama","id");
+        $wilayah = Wilayah::all()->pluck("nama","kd_wilayah");
         return Inertia::render('Admin/Peluang/Create', [
             'sektor' => $sektor,
+            'wilayah' => $wilayah,
         ]);
     }
 
@@ -85,9 +88,12 @@ class PeluangController extends Controller
     public function show(Peluang $peluang)
     {
          $sektor = Sektor::where("id",$peluang->sektor_id)->first();
+        $wilayah = Wilayah::where("kd_wilayah",$peluang->wilayah_id)->first();
          return Inertia::render('Admin/Peluang/Show', [
             'peluang' => $peluang,
             'sektor' => $sektor,
+            'wilayah' => $wilayah,
+            
         ]);
     }
 
@@ -97,9 +103,11 @@ class PeluangController extends Controller
     public function edit(Peluang $peluang)
     {
         $sektor = Sektor::all()->pluck("nama","id");
+        $wilayah = Wilayah::all()->pluck("nama","kd_wilayah");
         return Inertia::render('Admin/Peluang/Edit', [
             'peluang' => $peluang,
             'sektor' => $sektor,
+            'wilayah' => $wilayah,
         ]);
     }
 

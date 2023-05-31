@@ -22,6 +22,10 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  wilayah: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 
 const form = useForm({
@@ -31,6 +35,7 @@ const form = useForm({
   lat: props.peluang.lat,
   long: props.peluang.long,
   sektor_id: props.peluang.sektor_id,
+  wilayah_id: props.peluang.wilayah_id,
   
 })
 </script>
@@ -57,6 +62,24 @@ const form = useForm({
         form
         @submit.prevent="form.post(route('peluang.update', props.peluang.id))"
       >
+
+       <FormField
+          label="Wilayah"
+          :class="{ 'text-red-400': form.errors.wilayah_id }"
+        >
+       <FormControl
+            v-model="form.wilayah_id"
+            type="select"
+            placeholder="Pilih Wilayah"
+            :error="form.errors.wilayah_id"
+            :options="wilayah"
+          >
+            <div class="text-red-400 text-sm" v-if="form.errors.wilayah_id">
+              {{ form.errors.wilayah_id }}
+            </div>
+            
+          </FormControl>
+           </FormField>
 
        <FormField
           label="Sektor"

@@ -19,6 +19,10 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  wilayah: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 </script>
 
@@ -59,6 +63,24 @@ const props = defineProps({
               </td>
               <td data-label="sektor">
                 {{ sektor.nama }}
+              </td>
+            </tr>
+
+             <tr>
+              <td
+                class="
+                  p-4
+                  pl-8
+                  text-slate-500
+                  dark:text-slate-400
+                  hidden
+                  lg:block
+                "
+              >
+                Wilayah
+              </td>
+              <td data-label="wilayah">
+                {{ wilayah.nama }}
               </td>
             </tr>
 
