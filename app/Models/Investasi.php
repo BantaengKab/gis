@@ -5,16 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Peluang extends Model
+class Investasi extends Model
 {
     use HasFactory;
 
-    protected $table = 'peluang';
+    protected $table = 'investasi';
     protected $guarded = ['id'];
 
-     public function sektor()
+    public function sektor()
     {
         return $this->hasOne(Sektor::class, 'id', 'sektor_id');
+    }
+    public function investor()
+    {
+        return $this->hasOne(Investor::class, 'id', 'investor_id');
     }
 
 
