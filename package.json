@@ -23,6 +23,8 @@
     },
     "dependencies": {
         "@inertiajs/vue3": "^1.0.0",
-        "moment": "^2.29.4"
+        "leaflet": "^1.9.4",
+        "moment": "^2.29.4",
+        "vue3-leaflet": "^1.0.46"
     }
 }

@@ -28,6 +28,12 @@ defineProps({
                         alt=""
                     />
                 </div>
+
+                <!-- <Link
+                    :href="route('login')"
+                    class="font-semibold text-xs bg-red-600 text-white py-2 px-8 rounded-md hidden sm:inline"
+                    >Log in</Link
+                > -->
             </div>
         </div>
 
@@ -50,6 +56,14 @@ defineProps({
                             Investasikan dana Anda dan dapatkan keuntungan yang
                             berkelanjutan.
                         </p>
+
+                        <div class="pt-10">
+                            <Link
+                                :href="route('login')"
+                                class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]"
+                                >Investasi Sekarang</Link
+                            >
+                        </div>
                     </div>
                     <div class="pt-24 sm:pt-5">
                         <img
@@ -59,13 +73,12 @@ defineProps({
                         />
                     </div>
                 </div>
-                <div class="pt-20">
-                    <div class="rounded-lg" id="mapContainer" />
+                <div class="h-100">
+                    <div id="map"></div>
                 </div>
             </div>
         </div>
     </div>
-
     <div class="bg-gray-100 mt-16 sm:justify-center sm:items-center">
         <div class="max-w-7xl p-6 lg:p-8 mx-auto">
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-6 lg:gap-8">
@@ -110,44 +123,13 @@ defineProps({
     </div>
 </template>
 
-<script>
-import "leaflet/dist/leaflet.css";
-import L from "leaflet";
-export default {
-    name: "LeafletMap",
-    data() {
-        return {
-            map: null,
-        };
-    },
-    mounted() {
-        this.map = L.map("mapContainer").setView([46.05, 11.05], 5);
-        L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
-            attribution:
-                '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        }).addTo(this.map);
-        var customPane = this.map.createPane("customPane");
-
-        customPane.style.zIndex = 399;
-        L.marker([50, 14]).addTo(this.map);
-
-        L.marker([53, 20]).addTo(this.map);
-        L.marker([49.5, 19.5]).addTo(this.map);
-        L.marker([49, 25]).addTo(this.map);
-        L.marker([-10, 25]).addTo(this.map);
-        L.marker([10, -25]).addTo(this.map);
-        L.marker([0, 0]).addTo(this.map);
-    },
-    onBeforeUnmount() {
-        if (this.map) {
-            this.map.remove();
-        }
-    },
-};
-</script>
-
-<style scoped>
-#mapContainer {
-    height: 500px;
+<style>
+.bg-dots-darker {
+    background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(0,0,0,0.07)'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme: dark) {
+    .dark\:bg-dots-lighter {
+        background-image: url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.07)'/%3E%3C/svg%3E");
+    }
 }
 </style>
