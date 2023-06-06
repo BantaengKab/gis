@@ -116,8 +116,161 @@ defineProps({
                         />
                     </div>
                 </div>
-                <div class="pt-20">
-                    <div class="rounded-lg" id="mapContainer" />
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6 lg:gap-8">
+                    <div class="pt-20 col-span-4">
+                        <div class="rounded-lg" id="mapContainer" />
+                    </div>
+                    <div class="pt-20 col-span-1">
+                        <h5 class="font-semibold pb-3">Kecamatan</h5>
+                        <div class="p-4 rounded-lg bg-gray-100">
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded bg-red-500"></div>
+                                <div
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                >
+                                    Kecamatan A
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded bg-green-500"></div>
+                                <div
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                >
+                                    Kecamatan B
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-4 h-4 rounded bg-blue-500"></div>
+                                <div
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                >
+                                    Kecamatan C
+                                </div>
+                            </div>
+                        </div>
+                        <h5 class="font-semibold pt-10 pb-3">Marker</h5>
+                        <div class="p-4 rounded-lg bg-gray-100">
+                            <div class="flex items-center">
+                                <input
+                                    checked
+                                    id="default-radio-1"
+                                    type="radio"
+                                    value=""
+                                    name="default-radio"
+                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
+                                />
+                                <label
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    >Fasilitas Kesehatan</label
+                                >
+                            </div>
+                            <div class="flex items-center">
+                                <input
+                                    checked
+                                    id="default-radio-2"
+                                    type="radio"
+                                    value=""
+                                    name="default-radio"
+                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
+                                />
+                                <label
+                                    for="default-radio-2"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    >Sarana Pendidikan</label
+                                >
+                            </div>
+                            <div class="flex items-center">
+                                <input
+                                    checked
+                                    id="default-radio-3"
+                                    type="radio"
+                                    value=""
+                                    name="default-radio"
+                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
+                                />
+                                <label
+                                    for="default-radio-3"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    >Bank</label
+                                >
+                            </div>
+                            <div class="flex items-center">
+                                <input
+                                    checked
+                                    id="default-radio-4"
+                                    type="radio"
+                                    value=""
+                                    name="default-radio"
+                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
+                                />
+                                <label
+                                    for="default-radio-4"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    >Hotel</label
+                                >
+                            </div>
+                            <div class="flex items-center">
+                                <input
+                                    checked
+                                    id="default-radio-5"
+                                    type="radio"
+                                    value=""
+                                    name="default-radio"
+                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
+                                />
+                                <label
+                                    for="default-radio-5"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    >Industri</label
+                                >
+                            </div>
+                            <div class="flex items-center">
+                                <input
+                                    checked
+                                    id="default-radio-6"
+                                    type="radio"
+                                    value=""
+                                    name="default-radio"
+                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
+                                />
+                                <label
+                                    for="default-radio-6"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    >UMKM</label
+                                >
+                            </div>
+                            <div class="flex items-center">
+                                <input
+                                    checked
+                                    id="default-radio-7"
+                                    type="radio"
+                                    value=""
+                                    name="default-radio"
+                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-1"
+                                />
+                                <label
+                                    for="default-radio-7"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    >Kuliner</label
+                                >
+                            </div>
+                            <div class="flex items-center">
+                                <input
+                                    checked
+                                    id="default-radio-8"
+                                    type="radio"
+                                    value=""
+                                    name="default-radio"
+                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
+                                />
+                                <label
+                                    for="default-radio-8"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                    >Sarana Agama</label
+                                >
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
