@@ -48,7 +48,7 @@ defineProps({
                             <h1
                                 class="sm:text-3xl/[70px] text-xl/[30px] font-medium"
                             >
-                                KOTA BANTAENG
+                                KABUPATEN BANTAENG
                             </h1>
                         </div>
                         <p class="pt-8 text-xl/[30px]">
