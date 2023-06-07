@@ -29,11 +29,11 @@ defineProps({
                     />
                 </div>
 
-                <!-- <Link
+                <Link
                     :href="route('login')"
                     class="font-semibold text-xs bg-red-600 text-white py-2 px-8 rounded-md hidden sm:inline"
                     >Log in</Link
-                > -->
+                >
             </div>
         </div>
 
