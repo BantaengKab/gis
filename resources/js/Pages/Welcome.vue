@@ -331,7 +331,8 @@ export default {
         };
     },
     mounted() {
-        this.map = L.map("mapContainer").setView([46.05, 11.05], 5);
+        const self = this;
+        this.map = L.map("mapContainer").setView([-5.471, 119.978], 12);
         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
             attribution:
                 '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
@@ -346,6 +347,26 @@ export default {
         L.marker([-10, 25]).addTo(this.map);
         L.marker([10, -25]).addTo(this.map);
         L.marker([0, 0]).addTo(this.map);
+
+
+        //Geojson 
+        fetch('assets/batas_wilayah_kecamatan.geojson')
+            .then(function (response) {
+                return response.json(); 
+            }).then(function (data) {
+                L.geoJSON(data, {
+                    style: function (feature) {
+                        return {color: feature.properties.color};
+                    }
+                }).bindPopup(function (layer) {
+                    return layer.feature.properties.nama;
+                }).addTo(self.map); 
+            }).catch(function(error) {
+                console.error('Error:', error);
+            });
+
+            
+
     },
     onBeforeUnmount() {
         if (this.map) {
