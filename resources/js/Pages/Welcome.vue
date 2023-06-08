@@ -323,6 +323,8 @@ defineProps({
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import axios from 'axios';
+
 export default {
     name: "LeafletMap",
     data() {
@@ -338,18 +340,9 @@ export default {
                 '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         }).addTo(this.map);
         var customPane = this.map.createPane("customPane");
-
         customPane.style.zIndex = 399;
-        L.marker([50, 14]).addTo(this.map);
-        L.marker([53, 20]).addTo(this.map);
-        L.marker([49.5, 19.5]).addTo(this.map);
-        L.marker([49, 25]).addTo(this.map);
-        L.marker([-10, 25]).addTo(this.map);
-        L.marker([10, -25]).addTo(this.map);
-        L.marker([0, 0]).addTo(this.map);
 
-
-        //Geojson 
+         //Geojson 
         fetch('assets/batas_wilayah_kecamatan.geojson')
             .then(function (response) {
                 return response.json(); 
@@ -364,6 +357,31 @@ export default {
             }).catch(function(error) {
                 console.error('Error:', error);
             });
+
+
+        //IconMarker
+        var defaulticon = L.icon({
+            iconUrl: 'assets/asset1.png',
+            iconSize: [38, 95],
+            iconAnchor: [22, 94],
+            popupAnchor: [-3, -76],
+            shadowSize: [68, 95],
+            shadowAnchor: [22, 94]
+        });
+
+        //Marker
+        axios.get('/markers')
+        .then(response => {
+            const markers = response.data;
+
+            // Loop melalui data marker dan tambahkan marker ke peta
+            markers.forEach(marker => {
+            L.marker([marker.lat, marker.long],{icon:defaulticon}) .bindPopup(marker.nama).addTo(this.map);
+            });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
             
 
