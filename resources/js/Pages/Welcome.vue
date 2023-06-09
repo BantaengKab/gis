@@ -117,10 +117,10 @@ defineProps({
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-5 gap-6 lg:gap-8">
-                    <div class="pt-20 col-span-4">
+                    <div class="pt-20 col-span-6">
                         <div class="rounded-lg" id="mapContainer" />
                     </div>
-                    <div class="pt-20 col-span-1">
+                   <!-- <div class="pt-20 col-span-1">
                         <h5 class="font-semibold pb-3">Kecamatan</h5>
                         <div class="p-4 rounded-lg bg-gray-100">
                             <div class="flex items-center">
@@ -270,7 +270,7 @@ defineProps({
                                 >
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -337,7 +337,7 @@ export default {
         this.map = L.map("mapContainer").setView([-5.471, 119.978], 12);
         L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
             attribution:
-                '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+                '&copy; 2023 Gala Patta Creation All rights reserved.',
         }).addTo(this.map);
         var customPane = this.map.createPane("customPane");
         customPane.style.zIndex = 399;
@@ -359,24 +359,20 @@ export default {
             });
 
 
-        //IconMarker
-        var defaulticon = L.icon({
-            iconUrl: 'assets/asset1.png',
-            iconSize: [38, 95],
-            iconAnchor: [22, 94],
-            popupAnchor: [-3, -76],
-            shadowSize: [68, 95],
-            shadowAnchor: [22, 94]
-        });
+       
 
         //Marker
         axios.get('/markers')
         .then(response => {
             const markers = response.data;
-
             // Loop melalui data marker dan tambahkan marker ke peta
             markers.forEach(marker => {
-            L.marker([marker.lat, marker.long],{icon:defaulticon}) .bindPopup(marker.nama).addTo(this.map);
+                 //IconMarker
+                var defaulticon = L.icon({
+                    iconUrl: "/icon/" + marker.sektor.icon,
+                    iconSize: [25, 35],
+                });
+                L.marker([marker.lat, marker.long],{icon:defaulticon}) .bindPopup(marker.nama).addTo(this.map);
             });
         })
         .catch(error => {

@@ -67,8 +67,16 @@ class SektorController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        Sektor::create($request->all());
+    {   
+        $data = $request->all();
+         if ($request->hasFile('icon')) {
+            $image = $request->file('icon');
+            $imageName = $image->getClientOriginalName();
+            $image->move('icon/', $imageName);
+            $data['icon'] = $imageName;
+        } 
+        
+        Sektor::create($data);
 
         return redirect()->route('sektor.index')
                         ->with('message', __('Sektor created successfully.'));
@@ -99,7 +107,15 @@ class SektorController extends Controller
      */
     public function update(Request $request, Sektor $sektor)
     {
-        $sektor->update($request->all());
+         $data = $request->all();
+         if ($request->hasFile('icon')) {
+            $image = $request->file('icon');
+            $imageName = $image->getClientOriginalName();
+            $image->move('icon/', $imageName);
+            $data['icon'] = $imageName;
+        } 
+
+        $sektor->update($data);
 
         return redirect()->route('sektor.index')
                         ->with('message', __('Sektor updated successfully.'));

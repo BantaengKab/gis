@@ -67,6 +67,23 @@ const props = defineProps({
                   lg:block
                 "
               >
+                Icon
+              </td>
+              <td data-label="Icon">
+                 <img :src="getImageUrl(sektor.icon)" class="h-10 mr-2" alt="">
+              </td>
+            </tr>
+            <tr>
+              <td
+                class="
+                  p-4
+                  pl-8
+                  text-slate-500
+                  dark:text-slate-400
+                  hidden
+                  lg:block
+                "
+              >
                 Created
               </td>
               <td data-label="Created">
@@ -79,3 +96,13 @@ const props = defineProps({
     </SectionMain>
   </LayoutAuthenticated>
 </template>
+
+<script>
+export default {
+  methods: {
+    getImageUrl(filename) {
+      return "/icon/" + filename;
+    },
+  },
+};
+</script>

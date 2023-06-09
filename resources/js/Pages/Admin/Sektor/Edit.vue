@@ -23,6 +23,7 @@ const props = defineProps({
 const form = useForm({
   _method: 'put',
   nama: props.sektor.nama,
+  icon: props.sektor.icon,
 })
 </script>
 
@@ -63,6 +64,9 @@ const form = useForm({
             </div>
           </FormControl>
         </FormField>
+
+        
+
         <template #footer>
           <BaseButtons>
             <BaseButton

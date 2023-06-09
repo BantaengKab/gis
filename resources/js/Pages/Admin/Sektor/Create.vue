@@ -10,11 +10,13 @@ import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.
 import CardBox from "@/Components/CardBox.vue"
 import FormField from '@/Components/FormField.vue'
 import FormControl from '@/Components/FormControl.vue'
+import FormFilePicker from '@/Components/FormFilePicker.vue'
 import BaseButton from '@/Components/BaseButton.vue'
 import BaseButtons from '@/Components/BaseButtons.vue'
 
 const form = useForm({
   nama: '',
+  icon: '',
 })
 </script>
 
@@ -54,6 +56,19 @@ const form = useForm({
               {{ form.errors.nama }}
             </div>
           </FormControl>
+        </FormField>
+
+          <FormField
+          label="Icon Untuk Marker"
+          :class="{ 'text-red-400': form.errors.icon }"
+        >
+          <FormFilePicker
+            v-model="form.icon"
+          >
+            <div class="text-red-400 text-sm" v-if="form.errors.icon">
+              {{ form.errors.icon }}
+            </div>
+          </FormFilePicker>
         </FormField>
         <template #footer>
           <BaseButtons>
