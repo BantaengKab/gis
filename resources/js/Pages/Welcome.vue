@@ -334,13 +334,45 @@ export default {
     },
     mounted() {
         const self = this;
-        this.map = L.map("mapContainer").setView([-5.471, 119.978], 12);
-        L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+
+
+        
+
+        //Basemaps
+        var osm = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
             attribution:
                 '&copy; 2023 Gala Patta Creation All rights reserved.',
-        }).addTo(this.map);
-        var customPane = this.map.createPane("customPane");
-        customPane.style.zIndex = 399;
+        });
+        var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+            maxZoom: 20,
+            subdomains:['mt0','mt1','mt2','mt3']
+        });
+        var googleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+            maxZoom: 20,
+            subdomains:['mt0','mt1','mt2','mt3']
+        });
+        var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{
+            maxZoom: 20,
+            subdomains:['mt0','mt1','mt2','mt3']
+        });
+
+        this.map = L.map('mapContainer', {
+            center: [-5.471, 119.978],
+            zoom: 12,
+            layers:[googleSat]
+        });
+
+         //layercontrol
+        var baseMaps = {
+            "OpenStreetMap": osm,
+            "Streets": googleStreets,
+            "Hybrid" : googleHybrid,
+            "Satelite" : googleSat
+        };
+        var overlayMaps = {};
+        var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(this.map);
+
+        
 
          //Geojson 
         fetch('assets/batas_wilayah_kecamatan.geojson')
@@ -360,26 +392,47 @@ export default {
 
 
        
-
+        
         //Marker
+       var markerGroups = {};
         axios.get('/markers')
         .then(response => {
             const markers = response.data;
+            
             // Loop melalui data marker dan tambahkan marker ke peta
             markers.forEach(marker => {
+                var nama = marker.nama;
+                
                  //IconMarker
                 var defaulticon = L.icon({
                     iconUrl: "/icon/" + marker.sektor.icon,
                     iconSize: [25, 35],
                 });
-                L.marker([marker.lat, marker.long],{icon:defaulticon}) .bindPopup(marker.nama).addTo(this.map);
+              var markerLayer =  L.marker([marker.lat, marker.long],{icon:defaulticon}) .bindPopup(marker.nama);
+              // Cek apakah layer group sudah ada atau belum
+            if (!markerGroups.hasOwnProperty(marker.sektor.nama)) {
+                // Jika belum ada, buat layer group baru dan tambahkan ke objek layerGroups
+                markerGroups[marker.sektor.nama] = L.layerGroup();
+            }
+
+            // Tambahkan marker ke layer group yang sesuai
+            markerGroups[marker.sektor.nama].addLayer(markerLayer);
             });
+             // Tambahkan layer group ke dalam layer control
+            for (var groupName in markerGroups) {
+                layerControl.addOverlay(markerGroups[groupName], groupName);
+            }
+
+            //legend
+            layerControl.addLegend('<strong>Legend:</strong><br>Group 1<br>Group 2');
         })
         .catch(error => {
             console.error('Error:', error);
         });
 
-            
+       
+
+        
 
     },
     onBeforeUnmount() {
