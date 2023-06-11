@@ -376,36 +376,36 @@ export default {
         //Legend
         var legendHtml = '<br><hr/><strong>Keterangan:</strong><br>' +
             '<div class="flex items-center"> ' +
-            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
-            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan A</div>' +
+            '<div class="w-4 h-4 rounded " style="background-color:#7FFFD4;"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Bisappu</div>' +
             '</div>' +
             '<div class="flex items-center"> ' +
-            '<div class="w-4 h-4 rounded bg-green-500"></div>' +
-            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan B</div>' +
+            '<div class="w-4 h-4 rounded " style="background-color:#FF6347;"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Pajukukang</div>' +
             '</div>' +
             '<div class="flex items-center"> ' +
-            '<div class="w-4 h-4 rounded bg-blue-500"></div>' +
-            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan C</div>' +
+            '<div class="w-4 h-4 rounded " style="background-color:#D2691E;"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Gantarangkeke</div>' +
             '</div>' +
             '<div class="flex items-center"> ' +
-            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
-            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan D</div>' +
+            '<div class="w-4 h-4 rounded" style="background-color:#90EE90;"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Sinoa</div>' +
             '</div>' +
             '<div class="flex items-center"> ' +
-            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
-            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan E</div>' +
+            '<div class="w-4 h-4 rounded " style="background-color:#FFA07A;"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Bantaeng</div>' +
             '</div>' +
             '<div class="flex items-center"> ' +
-            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
-            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan F</div>' +
+            '<div class="w-4 h-4 rounded " style="background-color:#FFA500;"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Eremerasa</div>' +
             '</div>' +
             '<div class="flex items-center"> ' +
-            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
-            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan G</div>' +
+            '<div class="w-4 h-4 rounded " style="background-color:#DB7093;"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tompobulu</div>' +
             '</div>' +
             '<div class="flex items-center"> ' +
-            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
-            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan H</div>' +
+            '<div class="w-4 h-4 rounded " style="background-color:#B0E0E6;"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Uluere</div>' +
             '</div>';
 
         // Tambahkan custom HTML legend ke dalam elemen dengan id "legend-container"
@@ -449,7 +449,10 @@ export default {
             //IconMarker
             var defaulticon = L.icon({
                 iconUrl: "/icon/" + marker.sektor.icon,
-                iconSize: [25, 35],
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41],
             });
             var markerLayer = L.marker([marker.lat, marker.long], { icon: defaulticon }).bindPopup(marker.nama);
 
@@ -468,7 +471,7 @@ export default {
             // Tambahkan layer group ke dalam layer control
             for (var groupName in markerGroups) {
             var icon = markerIcons[groupName];
-            var iconHtml = '<p><img src="/icon/' + icon + '" style="vertical-align:middle;" width="16px" height="16px" alt="">' + groupName +'</p>';
+            var iconHtml = '<span style="display: inline-flex; align-items: center;"><img src="/icon/' + icon + '" width="20px" height="20px" alt="">' + groupName +'</span>';
             layerControl.addOverlay(markerGroups[groupName], iconHtml);
             }
         })
