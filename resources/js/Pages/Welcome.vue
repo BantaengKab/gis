@@ -116,7 +116,7 @@ defineProps({
                         />
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-6 lg:gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-6 lg:gap-8" >
                     <div class="pt-20 col-span-6">
                         <div class="rounded-lg" id="mapContainer" />
                     </div>
@@ -370,7 +370,48 @@ export default {
             "Satelite" : googleSat
         };
         var overlayMaps = {};
-        var layerControl = L.control.layers(baseMaps, overlayMaps).addTo(this.map);
+        var layerControl = L.control.layers(baseMaps, overlayMaps, { collapsed: false }).addTo(this.map);
+
+
+        //Legend
+        var legendHtml = '<br><hr/><strong>Keterangan:</strong><br>' +
+            '<div class="flex items-center"> ' +
+            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan A</div>' +
+            '</div>' +
+            '<div class="flex items-center"> ' +
+            '<div class="w-4 h-4 rounded bg-green-500"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan B</div>' +
+            '</div>' +
+            '<div class="flex items-center"> ' +
+            '<div class="w-4 h-4 rounded bg-blue-500"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan C</div>' +
+            '</div>' +
+            '<div class="flex items-center"> ' +
+            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan D</div>' +
+            '</div>' +
+            '<div class="flex items-center"> ' +
+            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan E</div>' +
+            '</div>' +
+            '<div class="flex items-center"> ' +
+            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan F</div>' +
+            '</div>' +
+            '<div class="flex items-center"> ' +
+            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan G</div>' +
+            '</div>' +
+            '<div class="flex items-center"> ' +
+            '<div class="w-4 h-4 rounded bg-red-500"></div>' +
+            '<div class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Kecamatan H</div>' +
+            '</div>';
+
+        // Tambahkan custom HTML legend ke dalam elemen dengan id "legend-container"
+        var legendContainer = L.DomUtil.create('div', 'legend');
+        legendContainer.innerHTML = legendHtml;
+        layerControl.getContainer().appendChild(legendContainer);
 
         
 
@@ -394,41 +435,47 @@ export default {
        
         
         //Marker
-       var markerGroups = {};
+        var markerGroups = {};
+        var markerIcons = {};
+
         axios.get('/markers')
         .then(response => {
             const markers = response.data;
             
             // Loop melalui data marker dan tambahkan marker ke peta
             markers.forEach(marker => {
-                var nama = marker.nama;
-                
-                 //IconMarker
-                var defaulticon = L.icon({
-                    iconUrl: "/icon/" + marker.sektor.icon,
-                    iconSize: [25, 35],
-                });
-              var markerLayer =  L.marker([marker.lat, marker.long],{icon:defaulticon}) .bindPopup(marker.nama);
-              // Cek apakah layer group sudah ada atau belum
+            var nama = marker.nama;
+            
+            //IconMarker
+            var defaulticon = L.icon({
+                iconUrl: "/icon/" + marker.sektor.icon,
+                iconSize: [25, 35],
+            });
+            var markerLayer = L.marker([marker.lat, marker.long], { icon: defaulticon }).bindPopup(marker.nama);
+
+            // Cek apakah layer group sudah ada atau belum
             if (!markerGroups.hasOwnProperty(marker.sektor.nama)) {
-                // Jika belum ada, buat layer group baru dan tambahkan ke objek layerGroups
+                // Jika belum ada, buat layer group baru dan tambahkan ke objek markerGroups
                 markerGroups[marker.sektor.nama] = L.layerGroup();
+                // Simpan ikon dalam objek markerIcons
+                markerIcons[marker.sektor.nama] = marker.sektor.icon;
             }
 
             // Tambahkan marker ke layer group yang sesuai
             markerGroups[marker.sektor.nama].addLayer(markerLayer);
             });
-             // Tambahkan layer group ke dalam layer control
-            for (var groupName in markerGroups) {
-                layerControl.addOverlay(markerGroups[groupName], groupName);
-            }
 
-            //legend
-            layerControl.addLegend('<strong>Legend:</strong><br>Group 1<br>Group 2');
+            // Tambahkan layer group ke dalam layer control
+            for (var groupName in markerGroups) {
+            var icon = markerIcons[groupName];
+            var iconHtml = '<p><img src="/icon/' + icon + '" style="vertical-align:middle;" width="16px" height="16px" alt="">' + groupName +'</p>';
+            layerControl.addOverlay(markerGroups[groupName], iconHtml);
+            }
         })
         .catch(error => {
             console.error('Error:', error);
         });
+
 
        
 
@@ -445,6 +492,6 @@ export default {
 
 <style scoped>
 #mapContainer {
-    height: 500px;
+    height: 700px;
 }
 </style>
