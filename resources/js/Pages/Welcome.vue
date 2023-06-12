@@ -506,19 +506,19 @@ export default {
             // Loop melalui data marker dan tambahkan marker ke peta
             markers.forEach(marker => {
             //IconMarker
-            if (){
-            var defaulticon = L.icon({
-                iconUrl: "/icon/" + marker.sektor.icon,
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
-                popupAnchor: [1, -34],
-                shadowSize: [41, 41],
-            });
-            var markerLayer = L.marker([marker.lat, marker.long], { icon: defaulticon, wilayah: marker.wilayah_id, markerId:marker.id }).bindPopup(marker.nama);
+                if (){
+                    var defaulticon = L.icon({
+                        iconUrl: "/icon/" + marker.sektor.icon,
+                        iconSize: [25, 41],
+                        iconAnchor: [12, 41],
+                        popupAnchor: [1, -34],
+                        shadowSize: [41, 41],
+                    });
+                    var markerLayer = L.marker([marker.lat, marker.long], { icon: defaulticon, wilayah: marker.wilayah_id, markerId:marker.id }).bindPopup(marker.nama);
 
-            // Tambahkan marker ke layer group yang sesuai
-            self.markerGroups[marker.sektor.nama].addLayer(markerLayer);
-            }
+                    // Tambahkan marker ke layer group yang sesuai
+                    self.markerGroups[marker.sektor.nama].addLayer(markerLayer);
+                }
             });
 
         })
