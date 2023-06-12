@@ -106,6 +106,8 @@ defineProps({
                             Yuk, jadilah bagian dari kesuksesan masa depan!
                             Investasikan dana Anda dan dapatkan keuntungan yang
                             berkelanjutan.
+                            <button  @click="filterMarker('730305');">industri</button>
+                            <button  @click="filterMarker('7303021002');">kesehatan</button>
                         </p>
                     </div>
                     <div class="pt-24 sm:pt-5">
@@ -325,18 +327,31 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import axios from 'axios';
 
+
 export default {
     name: "LeafletMap",
     data() {
         return {
             map: null,
+             markerGroups: {},
         };
     },
     mounted() {
-        const self = this;
-
-
+       
         
+        this.intializeMap();
+        
+     
+    },
+    onBeforeUnmount() {
+        if (this.map) {
+            this.map.remove();
+        }
+    },
+    methods: {
+
+    intializeMap(){
+         const self = this;
 
         //Basemaps
         var osm = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
@@ -435,7 +450,6 @@ export default {
        
         
         //Marker
-        var markerGroups = {};
         var markerIcons = {};
 
         axios.get('/markers')
@@ -444,8 +458,6 @@ export default {
             
             // Loop melalui data marker dan tambahkan marker ke peta
             markers.forEach(marker => {
-            var nama = marker.nama;
-            
             //IconMarker
             var defaulticon = L.icon({
                 iconUrl: "/icon/" + marker.sektor.icon,
@@ -454,42 +466,57 @@ export default {
                 popupAnchor: [1, -34],
                 shadowSize: [41, 41],
             });
-            var markerLayer = L.marker([marker.lat, marker.long], { icon: defaulticon }).bindPopup(marker.nama);
+            var markerLayer = L.marker([marker.lat, marker.long], { icon: defaulticon, wilayah: marker.wilayah_id }).bindPopup(marker.nama);
 
             // Cek apakah layer group sudah ada atau belum
-            if (!markerGroups.hasOwnProperty(marker.sektor.nama)) {
+            if (!self.markerGroups.hasOwnProperty(marker.sektor.nama)) {
                 // Jika belum ada, buat layer group baru dan tambahkan ke objek markerGroups
-                markerGroups[marker.sektor.nama] = L.layerGroup();
+                self.markerGroups[marker.sektor.nama] = L.layerGroup();
                 // Simpan ikon dalam objek markerIcons
                 markerIcons[marker.sektor.nama] = marker.sektor.icon;
             }
 
             // Tambahkan marker ke layer group yang sesuai
-            markerGroups[marker.sektor.nama].addLayer(markerLayer);
+            self.markerGroups[marker.sektor.nama].addLayer(markerLayer);
             });
 
             // Tambahkan layer group ke dalam layer control
-            for (var groupName in markerGroups) {
+            for (var groupName in self.markerGroups) {
             var icon = markerIcons[groupName];
             var iconHtml = '<span style="display: inline-flex; align-items: center;"><img src="/icon/' + icon + '" width="20px" height="20px" alt="">' + groupName +'</span>';
-            layerControl.addOverlay(markerGroups[groupName], iconHtml);
+            layerControl.addOverlay(self.markerGroups[groupName], iconHtml);
             }
         })
         .catch(error => {
             console.error('Error:', error);
         });
 
+    },
 
-       
+    filterMarker(wilayahId) {
+      for (var groupName in this.markerGroups) {
+        var markerGroup = this.markerGroups[groupName];
+        var layers = markerGroup.getLayers();
 
         
+            layers.forEach(layer => {
+                if (layer.options.wilayah === wilayahId && this.map.hasLayer(markerGroup)) {
+                    this.map.addLayer(layer);
+                } else {
+                    this.map.removeLayer(layer);
+                }
+            });
+      }
+    },
 
-    },
-    onBeforeUnmount() {
-        if (this.map) {
-            this.map.remove();
-        }
-    },
+    reloadMap() {
+      this.map.remove();
+      this.initializeMap();
+    }
+
+    
+  }
+    
 };
 </script>
 
