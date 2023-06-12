@@ -108,6 +108,7 @@ defineProps({
                             berkelanjutan.
                             <button  @click="filterMarker('730305');">industri</button>
                             <button  @click="filterMarker('7303021002');">kesehatan</button>
+                            <button type="button"  @click="reloadMap();">Reload</button>
                         </p>
                     </div>
                     <div class="pt-24 sm:pt-5">
@@ -334,12 +335,13 @@ export default {
         return {
             map: null,
              markerGroups: {},
+             markerIcons : {},
         };
     },
     mounted() {
        
         
-        this.intializeMap();
+        this.initializeMap();
         
      
     },
@@ -350,7 +352,7 @@ export default {
     },
     methods: {
 
-    intializeMap(){
+    initializeMap(){
          const self = this;
 
         //Basemaps
@@ -450,7 +452,7 @@ export default {
        
         
         //Marker
-        var markerIcons = {};
+        
 
         axios.get('/markers')
         .then(response => {
@@ -466,14 +468,14 @@ export default {
                 popupAnchor: [1, -34],
                 shadowSize: [41, 41],
             });
-            var markerLayer = L.marker([marker.lat, marker.long], { icon: defaulticon, wilayah: marker.wilayah_id }).bindPopup(marker.nama);
+            var markerLayer = L.marker([marker.lat, marker.long], { icon: defaulticon, wilayah: marker.wilayah_id, markerId: marker.id }).bindPopup(marker.nama);
 
             // Cek apakah layer group sudah ada atau belum
             if (!self.markerGroups.hasOwnProperty(marker.sektor.nama)) {
                 // Jika belum ada, buat layer group baru dan tambahkan ke objek markerGroups
                 self.markerGroups[marker.sektor.nama] = L.layerGroup();
                 // Simpan ikon dalam objek markerIcons
-                markerIcons[marker.sektor.nama] = marker.sektor.icon;
+                self.markerIcons[marker.sektor.nama] = marker.sektor.icon;
             }
 
             // Tambahkan marker ke layer group yang sesuai
@@ -482,7 +484,7 @@ export default {
 
             // Tambahkan layer group ke dalam layer control
             for (var groupName in self.markerGroups) {
-            var icon = markerIcons[groupName];
+            var icon = self.markerIcons[groupName];
             var iconHtml = '<span style="display: inline-flex; align-items: center;"><img src="/icon/' + icon + '" width="20px" height="20px" alt="">' + groupName +'</span>';
             layerControl.addOverlay(self.markerGroups[groupName], iconHtml);
             }
@@ -493,17 +495,52 @@ export default {
 
     },
 
+    addLayerMarker(wilayahId){
+        //Marker
+        
+
+        axios.get('/markers')
+        .then(response => {
+            const markers = response.data;
+            
+            // Loop melalui data marker dan tambahkan marker ke peta
+            markers.forEach(marker => {
+            //IconMarker
+            if (){
+            var defaulticon = L.icon({
+                iconUrl: "/icon/" + marker.sektor.icon,
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41],
+            });
+            var markerLayer = L.marker([marker.lat, marker.long], { icon: defaulticon, wilayah: marker.wilayah_id, markerId:marker.id }).bindPopup(marker.nama);
+
+            // Tambahkan marker ke layer group yang sesuai
+            self.markerGroups[marker.sektor.nama].addLayer(markerLayer);
+            }
+            });
+
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    },
+
     filterMarker(wilayahId) {
+        // this.reloadMap();
       for (var groupName in this.markerGroups) {
         var markerGroup = this.markerGroups[groupName];
         var layers = markerGroup.getLayers();
 
         
             layers.forEach(layer => {
-                if (layer.options.wilayah === wilayahId && this.map.hasLayer(markerGroup)) {
-                    this.map.addLayer(layer);
+                
+                if (layer.options.wilayah === wilayahId) {
+
                 } else {
                     this.map.removeLayer(layer);
+                    markerGroup.removeLayer(layer);
                 }
             });
       }
