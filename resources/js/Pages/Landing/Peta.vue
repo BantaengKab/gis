@@ -14,6 +14,9 @@ defineProps({
         <HeadBanner :showBtn="false" />
         <div class="grid grid-cols-1 md:grid-cols-5 gap-6 lg:gap-8">
             <div class="pt-20 col-span-6">
+                <div><button class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]" @click="filterMarker('730305')">Industri</button></div>
+                <div><button class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]" @click="filterMarker('7303021002')">Kesehatan</button></div>
+                <div><button class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]" @click="reloadMap()">Reset</button></div>
                 <div class="rounded-lg" id="mapContainer" />
             </div>
             <!-- <div class="pt-20 col-span-1">
@@ -194,41 +197,43 @@ export default {
         }
     },
     methods: {
+
         initializeMap() {
             const self = this;
 
             //Basemaps
-            var osm = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+            var osm = L.tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
                 attribution:
                     "&copy; 2023 Gala Patta Creation All rights reserved.",
             });
             var googleStreets = L.tileLayer(
-                "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+                "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
                 {
                     maxZoom: 20,
+                    maxNativeZoom:20,
                     subdomains: ["mt0", "mt1", "mt2", "mt3"],
                 }
             );
             var googleHybrid = L.tileLayer(
-                "http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
+                "https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
                 {
                     maxZoom: 20,
+                    maxNativeZoom:20,
                     subdomains: ["mt0", "mt1", "mt2", "mt3"],
                 }
             );
             var googleSat = L.tileLayer(
-                "http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+                "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
                 {
                     maxZoom: 20,
+                    maxNativeZoom:20,
                     subdomains: ["mt0", "mt1", "mt2", "mt3"],
                 }
             );
 
             this.map = L.map("mapContainer", {
-                center: [-5.471, 119.978],
-                zoom: 12,
                 layers: [googleSat],
-            });
+            }).setView([-5.471, 119.978], 12);
 
             //layercontrol
             var baseMaps = {
@@ -241,6 +246,7 @@ export default {
             var layerControl = L.control
                 .layers(baseMaps, overlayMaps, { collapsed: false })
                 .addTo(this.map);
+
 
             //Legend
             var legendHtml =
@@ -377,25 +383,26 @@ export default {
                     // Loop melalui data marker dan tambahkan marker ke peta
                     markers.forEach((marker) => {
                         //IconMarker
-                        // if (){
-                        var defaulticon = L.icon({
-                            iconUrl: "/icon/" + marker.sektor.icon,
-                            iconSize: [25, 41],
-                            iconAnchor: [12, 41],
-                            popupAnchor: [1, -34],
-                            shadowSize: [41, 41],
-                        });
-                        var markerLayer = L.marker([marker.lat, marker.long], {
-                            icon: defaulticon,
-                            wilayah: marker.wilayah_id,
-                            markerId: marker.id,
-                        }).bindPopup(marker.nama);
+                        
+                        if (!this.isDuplicateMarker(this.markerGroups[marker.sektor.nama], marker.id) && marker.wilayah_id == wilayahId){
+                            var defaulticon = L.icon({
+                                iconUrl: "/icon/" + marker.sektor.icon,
+                                iconSize: [25, 41],
+                                iconAnchor: [12, 41],
+                                popupAnchor: [1, -34],
+                                shadowSize: [41, 41],
+                            });
+                            var markerLayer = L.marker([marker.lat, marker.long], {
+                                icon: defaulticon,
+                                wilayah: marker.wilayah_id,
+                                markerId: marker.id,
+                            }).bindPopup(marker.nama);
 
-                        // Tambahkan marker ke layer group yang sesuai
-                        self.markerGroups[marker.sektor.nama].addLayer(
-                            markerLayer
-                        );
-                        // }
+                            // Tambahkan marker ke layer group yang sesuai
+                            this.markerGroups[marker.sektor.nama].addLayer(
+                                markerLayer
+                            );
+                        }
                     });
                 })
                 .catch((error) => {
@@ -403,14 +410,26 @@ export default {
                 });
         },
 
+        isDuplicateMarker(markerGroup, markerId) {
+            var layers = markerGroup.getLayers();
+            for (var i = 0; i < layers.length; i++) {
+                var layer = layers[i];
+                if (layer.options.markerId === markerId) {
+                return true; // Marker dengan ID yang sama sudah ada
+                }
+            }
+            return false; // Tidak ada marker dengan ID yang sama
+        },
+
         filterMarker(wilayahId) {
             // this.reloadMap();
             for (var groupName in this.markerGroups) {
                 var markerGroup = this.markerGroups[groupName];
                 var layers = markerGroup.getLayers();
-
+                this.addLayerMarker(wilayahId);
                 layers.forEach((layer) => {
-                    if (layer.options.wilayah === wilayahId) {
+                    if (layer.options.wilayah === wilayahId && this.map.hasLayer(markerGroup)) {
+                        this.map.addLayer(layer);
                     } else {
                         this.map.removeLayer(layer);
                         markerGroup.removeLayer(layer);
