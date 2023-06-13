@@ -14,9 +14,21 @@ defineProps({
         <HeadBanner :showBtn="false" />
         <div class="grid grid-cols-1 md:grid-cols-5 gap-6 lg:gap-8">
             <div class="pt-20 col-span-6">
-                <div><button class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]" @click="filterMarker('730305')">Industri</button></div>
-                <div><button class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]" @click="filterMarker('7303021002')">Kesehatan</button></div>
-                <div><button class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]" @click="reloadMap()">Reset</button></div>
+
+               <div>
+                    <select v-model="selectedParent" @change="loadChildOptions">
+                    <option value="">Pilih Kecamatan</option>
+                    <option v-for="parent in parents" :value="parent.kd_wilayah" :key="parent.kd_wilayah">{{ parent.nama }}</option>
+                    </select>
+                    <select v-model="selectedChild">
+                    <option value="">Pilih Kelurahan</option>
+                    <option v-for="child in children" :value="child.kd_wilayah" :key="child.kd_wilayah">{{ child.nama }}</option>
+                    </select>
+
+                    <button @click="filterMarker()" class="font-normal bg-green-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]">Tampilkan</button>
+                    <button @click="reloadMap()" class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]">Atur Ulang</button>
+                </div>
+
                 <div class="rounded-lg" id="mapContainer" />
             </div>
             <!-- <div class="pt-20 col-span-1">
@@ -186,10 +198,15 @@ export default {
             map: null,
             markerGroups: {},
             markerIcons: {},
+            parents: [],
+            children: [],
+            selectedParent: '',
+            selectedChild: '',
         };
     },
     mounted() {
         this.initializeMap();
+         this.loadParentOptions();
     },
     onBeforeUnmount() {
         if (this.map) {
@@ -384,7 +401,7 @@ export default {
                     markers.forEach((marker) => {
                         //IconMarker
                         
-                        if (!this.isDuplicateMarker(this.markerGroups[marker.sektor.nama], marker.id) && marker.wilayah_id == wilayahId){
+                        if (!this.isDuplicateMarker(this.markerGroups[marker.sektor.nama], marker.id) && marker.wilayah_id.includes(wilayahId) ){
                             var defaulticon = L.icon({
                                 iconUrl: "/icon/" + marker.sektor.icon,
                                 iconSize: [25, 41],
@@ -421,14 +438,18 @@ export default {
             return false; // Tidak ada marker dengan ID yang sama
         },
 
-        filterMarker(wilayahId) {
-            // this.reloadMap();
+        filterMarker() {
+            var wilayahId = this.selectedChild;
+            if(this.selectedChild == ""){
+                wilayahId = this.selectedParent;
+            }
+
             for (var groupName in this.markerGroups) {
                 var markerGroup = this.markerGroups[groupName];
                 var layers = markerGroup.getLayers();
                 this.addLayerMarker(wilayahId);
                 layers.forEach((layer) => {
-                    if (layer.options.wilayah === wilayahId && this.map.hasLayer(markerGroup)) {
+                    if (layer.options.wilayah.includes(wilayahId) && this.map.hasLayer(markerGroup)) {
                         this.map.addLayer(layer);
                     } else {
                         this.map.removeLayer(layer);
@@ -442,6 +463,31 @@ export default {
             this.map.remove();
             this.initializeMap();
         },
+
+        loadParentOptions() {
+            axios.get('/kecamatans')
+            .then(response => {
+                this.parents = response.data;
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        },
+
+        loadChildOptions() {
+            if (this.selectedParent) {
+                axios.get('/kelurahans/' + this.selectedParent)
+                .then(response => {
+                    this.children = response.data;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            } else {
+                this.children = [];
+            }
+        },
+
     },
 };
 </script>
