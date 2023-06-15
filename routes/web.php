@@ -24,8 +24,13 @@ use Inertia\Inertia;
 //     ]);
 // });
 Route::get('/', function () {
-    return Inertia::render('Landing/Peta');
+    // return Inertia::render('Landing/Peta');
+    return Inertia::render('Welcome');
 });
+Route::get('investasi', function () {
+    // return Inertia::render('Landing/Peta');
+    return Inertia::render('Landing/Beranda');
+})->name('investasi');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
