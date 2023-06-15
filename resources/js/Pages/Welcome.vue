@@ -12,9 +12,9 @@ import Invest from "./Landing/Invest.vue";
     <Head title="GIS" />
     <NavbarLanding />
     <!-- <Beranda /> -->
-    <Peta />
+    <!-- <Peta /> -->
     <!-- <FormLanding /> -->
-    <!-- <Invest /> -->
+    <Invest />
     <FooterLanding />
 </template>
 
