@@ -21,6 +21,9 @@ import SectionTitle from "@/Components/SectionTitle.vue";
 import SectionTitleLineWithButton from "@/Components/SectionTitleLineWithButton.vue";
 import NotificationBarInCard from "@/Components/NotificationBarInCard.vue";
 import BodyLanding from "../../Components/Landing/Body.vue";
+import NavbarLanding from "../../Components/Landing/NavbarLanding.vue";
+import FooterLanding from "../../Components/Landing/FooterLanding.vue";
+import { Head, Link } from "@inertiajs/vue3";
 
 const selectOptions = [
     { id: 1, label: "Business development" },
@@ -63,6 +66,8 @@ const formStatusSubmit = () => {
 </script>
 
 <template>
+    <Head title="GIS" />
+    <NavbarLanding />
     <BodyLanding>
         <SectionTitleLineWithButton
             :icon="mdiBallotOutline"
@@ -282,6 +287,7 @@ const formStatusSubmit = () => {
             </div>
         </div>
     </BodyLanding>
+    <FooterLanding />
 </template>
 
 <script>

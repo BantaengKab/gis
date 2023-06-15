@@ -1,19 +1,113 @@
 <script setup>
 import HeadBanner from "../../Components/Landing/HeadBanner.vue";
 import BodyLanding from "../../Components/Landing/Body.vue";
+import { Head, Link } from "@inertiajs/vue3";
+import { reactive, ref } from "vue";
+import NavbarLanding from "../../Components/Landing/NavbarLanding.vue";
+import FooterLanding from "../../Components/Landing/FooterLanding.vue";
+import FormField from "@/Components/FormField.vue";
+import FormControl from "@/Components/FormControl.vue";
+
 defineProps({
     canLogin: Boolean,
     canRegister: Boolean,
     laravelVersion: String,
     phpVersion: String,
 });
+
+const selectKec = [
+    { id: 1, label: "Business development" },
+    { id: 2, label: "Marketing" },
+    { id: 3, label: "Sales" },
+];
+const selectKel = [
+    { id: 1, label: "Business development" },
+    { id: 2, label: "Marketing" },
+    { id: 3, label: "Sales" },
+];
+
+const form = reactive({
+    kec: selectKec[0],
+    kel: selectKel[0],
+});
 </script>
 
 <template>
+    <Head title="GIS" />
+    <NavbarLanding />
     <BodyLanding>
         <HeadBanner :showBtn="false" />
-        <div class="grid grid-cols-1 md:grid-cols-5 gap-6 lg:gap-8">
-            <div class="pt-20 col-span-6">
+
+        <div class="grid pt-20 grid-cols-6 gap-6 lg:gap-8">
+            <div class="col-span-2">
+                <FormControl
+                    v-model="form.kec"
+                    :options="selectKec"
+                    placeholder="Pilih Kecamatan"
+                />
+            </div>
+            <div class="col-span-2">
+                <FormControl
+                    v-model="form.kel"
+                    :options="selectKel"
+                    placeholder="Pilih Kelurahan"
+                />
+            </div>
+            <div class="col-span-1">
+                <button
+                    @click="filterMarker()"
+                    class="font-normal bg-green-600 text-white py-2.5 px-10 rounded-md inline text-xl/[30px]"
+                >
+                    Tampilkan
+                </button>
+            </div>
+            <div class="col-span-1">
+                <button
+                    @click="reloadMap()"
+                    class="font-normal bg-red-600 text-white py-2.5 px-10 rounded-md inline text-xl/[30px]"
+                >
+                    Atur Ulang
+                </button>
+            </div>
+        </div>
+        <div class="grid grid-cols-3 md:grid-cols-5 gap-6 lg:gap-8">
+            <div class="pt-4 col-span-6">
+                <!-- <div>
+                    <select v-model="selectedParent" @change="loadChildOptions">
+                        <option value="">Pilih Kecamatan</option>
+                        <option
+                            v-for="parent in parents"
+                            :value="parent.kd_wilayah"
+                            :key="parent.kd_wilayah"
+                        >
+                            {{ parent.nama }}
+                        </option>
+                    </select>
+                    <select v-model="selectedChild">
+                        <option value="">Pilih Kelurahan</option>
+                        <option
+                            v-for="child in children"
+                            :value="child.kd_wilayah"
+                            :key="child.kd_wilayah"
+                        >
+                            {{ child.nama }}
+                        </option>
+                    </select>
+
+                    <button
+                        @click="filterMarker()"
+                        class="font-normal bg-green-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]"
+                    >
+                        Tampilkan
+                    </button>
+                    <button
+                        @click="reloadMap()"
+                        class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]"
+                    >
+                        Atur Ulang
+                    </button>
+                </div> -->
+
                 <div class="rounded-lg" id="mapContainer" />
             </div>
             <!-- <div class="pt-20 col-span-1">
@@ -169,6 +263,7 @@ defineProps({
                     </div>-->
         </div>
     </BodyLanding>
+    <FooterLanding />
 </template>
 
 <script>
@@ -183,10 +278,15 @@ export default {
             map: null,
             markerGroups: {},
             markerIcons: {},
+            parents: [],
+            children: [],
+            selectedParent: "",
+            selectedChild: "",
         };
     },
     mounted() {
         this.initializeMap();
+        this.loadParentOptions();
     },
     onBeforeUnmount() {
         if (this.map) {
@@ -198,37 +298,38 @@ export default {
             const self = this;
 
             //Basemaps
-            var osm = L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+            var osm = L.tileLayer("https://{s}.tile.osm.org/{z}/{x}/{y}.png", {
                 attribution:
                     "&copy; 2023 Gala Patta Creation All rights reserved.",
             });
             var googleStreets = L.tileLayer(
-                "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+                "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
                 {
                     maxZoom: 20,
+                    maxNativeZoom: 20,
                     subdomains: ["mt0", "mt1", "mt2", "mt3"],
                 }
             );
             var googleHybrid = L.tileLayer(
-                "http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
+                "https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}",
                 {
                     maxZoom: 20,
+                    maxNativeZoom: 20,
                     subdomains: ["mt0", "mt1", "mt2", "mt3"],
                 }
             );
             var googleSat = L.tileLayer(
-                "http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
+                "https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}",
                 {
                     maxZoom: 20,
+                    maxNativeZoom: 20,
                     subdomains: ["mt0", "mt1", "mt2", "mt3"],
                 }
             );
 
             this.map = L.map("mapContainer", {
-                center: [-5.471, 119.978],
-                zoom: 12,
                 layers: [googleSat],
-            });
+            }).setView([-5.471, 119.978], 12);
 
             //layercontrol
             var baseMaps = {
@@ -377,25 +478,35 @@ export default {
                     // Loop melalui data marker dan tambahkan marker ke peta
                     markers.forEach((marker) => {
                         //IconMarker
-                        // if (){
-                        var defaulticon = L.icon({
-                            iconUrl: "/icon/" + marker.sektor.icon,
-                            iconSize: [25, 41],
-                            iconAnchor: [12, 41],
-                            popupAnchor: [1, -34],
-                            shadowSize: [41, 41],
-                        });
-                        var markerLayer = L.marker([marker.lat, marker.long], {
-                            icon: defaulticon,
-                            wilayah: marker.wilayah_id,
-                            markerId: marker.id,
-                        }).bindPopup(marker.nama);
 
-                        // Tambahkan marker ke layer group yang sesuai
-                        self.markerGroups[marker.sektor.nama].addLayer(
-                            markerLayer
-                        );
-                        // }
+                        if (
+                            !this.isDuplicateMarker(
+                                this.markerGroups[marker.sektor.nama],
+                                marker.id
+                            ) &&
+                            marker.wilayah_id.includes(wilayahId)
+                        ) {
+                            var defaulticon = L.icon({
+                                iconUrl: "/icon/" + marker.sektor.icon,
+                                iconSize: [25, 41],
+                                iconAnchor: [12, 41],
+                                popupAnchor: [1, -34],
+                                shadowSize: [41, 41],
+                            });
+                            var markerLayer = L.marker(
+                                [marker.lat, marker.long],
+                                {
+                                    icon: defaulticon,
+                                    wilayah: marker.wilayah_id,
+                                    markerId: marker.id,
+                                }
+                            ).bindPopup(marker.nama);
+
+                            // Tambahkan marker ke layer group yang sesuai
+                            this.markerGroups[marker.sektor.nama].addLayer(
+                                markerLayer
+                            );
+                        }
                     });
                 })
                 .catch((error) => {
@@ -403,14 +514,33 @@ export default {
                 });
         },
 
-        filterMarker(wilayahId) {
-            // this.reloadMap();
+        isDuplicateMarker(markerGroup, markerId) {
+            var layers = markerGroup.getLayers();
+            for (var i = 0; i < layers.length; i++) {
+                var layer = layers[i];
+                if (layer.options.markerId === markerId) {
+                    return true; // Marker dengan ID yang sama sudah ada
+                }
+            }
+            return false; // Tidak ada marker dengan ID yang sama
+        },
+
+        filterMarker() {
+            var wilayahId = this.selectedChild;
+            if (this.selectedChild == "") {
+                wilayahId = this.selectedParent;
+            }
+
             for (var groupName in this.markerGroups) {
                 var markerGroup = this.markerGroups[groupName];
                 var layers = markerGroup.getLayers();
-
+                this.addLayerMarker(wilayahId);
                 layers.forEach((layer) => {
-                    if (layer.options.wilayah === wilayahId) {
+                    if (
+                        layer.options.wilayah.includes(wilayahId) &&
+                        this.map.hasLayer(markerGroup)
+                    ) {
+                        this.map.addLayer(layer);
                     } else {
                         this.map.removeLayer(layer);
                         markerGroup.removeLayer(layer);
@@ -422,6 +552,32 @@ export default {
         reloadMap() {
             this.map.remove();
             this.initializeMap();
+        },
+
+        loadParentOptions() {
+            axios
+                .get("/kecamatans")
+                .then((response) => {
+                    this.parents = response.data;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+
+        loadChildOptions() {
+            if (this.selectedParent) {
+                axios
+                    .get("/kelurahans/" + this.selectedParent)
+                    .then((response) => {
+                        this.children = response.data;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } else {
+                this.children = [];
+            }
         },
     },
 };

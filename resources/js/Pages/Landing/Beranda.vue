@@ -2,9 +2,14 @@
 import HeadBanner from "../../Components/Landing/HeadBanner.vue";
 import BodyLanding from "../../Components/Landing/Body.vue";
 import TableSampleClients from "@/Components/TableSampleClients.vue";
+import NavbarLanding from "../../Components/Landing/NavbarLanding.vue";
+import FooterLanding from "../../Components/Landing/FooterLanding.vue";
+import { Head, Link } from "@inertiajs/vue3";
 </script>
 
 <template>
+    <Head title="GIS" />
+    <NavbarLanding />
     <BodyLanding>
         <HeadBanner :showBtn="true" />
         <h2 class="pt-20 mt-20 pb-10 text-2xl/[30px] font-bold">
@@ -14,6 +19,7 @@ import TableSampleClients from "@/Components/TableSampleClients.vue";
             <TableSampleClients />
         </div>
     </BodyLanding>
+    <FooterLanding />
 </template>
 <script>
 export default {

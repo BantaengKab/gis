@@ -24,13 +24,27 @@ use Inertia\Inertia;
 //     ]);
 // });
 Route::get('/', function () {
-    return Inertia::render('Welcome');
-});
+    // return Inertia::render('Landing/Peta');
+    return Inertia::render('Landing/Beranda');
+})->name('/');;
+Route::get('investasi', function () {
+    return Inertia::render('Landing/Invest');
+})->name('investasi');
+
+Route::get('form', function () {
+    return Inertia::render('Landing/Form');
+})->name('form');
+
+Route::get('peta', function () {
+    return Inertia::render('Landing/Peta');
+})->name('peta');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/markers', [App\Http\Controllers\PetaController::class, 'marker']);
+Route::get('/kecamatans', [App\Http\Controllers\PetaController::class, 'getKecamatan']);
+Route::get('/kelurahans/{parentId}', [App\Http\Controllers\PetaController::class, 'getKelurahan']);
 
 require __DIR__.'/auth.php';
