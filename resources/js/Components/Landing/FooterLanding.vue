@@ -16,8 +16,8 @@ import { mdiEmailOutline, mdiWhatsapp } from "@mdi/js";
                         />
                     </div>
                     <p class="pt-3">
-                        Jl. Sukamulia No.21, Tamamaung, Kec. Panakkukang, Kota
-                        Makassar, Sulawesi Selatan 90231
+                        Jl. Bungung Barania, Pallantikang, Kec. Bantaeng, Kabupaten
+                        Bantaeng, Sulawesi Selatan 90231
                     </p>
                     <p class="pt-3 text-red-600">
                         © 2023 Gala Patta Creation All rights reserved.
@@ -27,7 +27,7 @@ import { mdiEmailOutline, mdiWhatsapp } from "@mdi/js";
                     <h1 class="text-xl font-medium">Kontak Kami</h1>
                     <div class="inline-flex items-center pt-3">
                         <BaseIcon :path="mdiWhatsapp" w="w-4" class="mr-3" />
-                        <p class="">+62 813-4264-0000</p>
+                        <p class="">+62 852-5616-3343</p>
                     </div>
                     <div class="inline-flex items-center pt-3">
                         <BaseIcon
@@ -35,7 +35,7 @@ import { mdiEmailOutline, mdiWhatsapp } from "@mdi/js";
                             w="w-4"
                             class="mr-3"
                         />
-                        <p class="">Gala@gmail.com</p>
+                        <p class="">galappttacreation@gmail.com</p>
                     </div>
                 </div>
                 <div class="sm:col-span-1">

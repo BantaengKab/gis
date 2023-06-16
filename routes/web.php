@@ -23,10 +23,7 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
-Route::get('/', function () {
-    // return Inertia::render('Landing/Peta');
-    return Inertia::render('Landing/Beranda');
-})->name('/');;
+Route::get('/', [App\Http\Controllers\PetaController::class, 'beranda'])->name('/');
 Route::get('investasi', function () {
     return Inertia::render('Landing/Invest');
 })->name('investasi');

@@ -55,7 +55,7 @@ function destroy(id) {
         main
       >
         <BaseButton
-          v-if="can.delete"
+          v-if="can.create"
           :route-name="route('sektor.create')"
           :icon="mdiPlus"
           label="Add"

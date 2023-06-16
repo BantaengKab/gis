@@ -15,21 +15,6 @@ defineProps({
     phpVersion: String,
 });
 
-const selectKec = [
-    { id: 1, label: "Business development" },
-    { id: 2, label: "Marketing" },
-    { id: 3, label: "Sales" },
-];
-const selectKel = [
-    { id: 1, label: "Business development" },
-    { id: 2, label: "Marketing" },
-    { id: 3, label: "Sales" },
-];
-
-const form = reactive({
-    kec: selectKec[0],
-    kel: selectKel[0],
-});
 </script>
 
 <template>
@@ -40,18 +25,28 @@ const form = reactive({
 
         <div class="grid pt-20 grid-cols-6 gap-6 lg:gap-8">
             <div class="col-span-2">
-                <FormControl
-                    v-model="form.kec"
-                    :options="selectKec"
-                    placeholder="Pilih Kecamatan"
-                />
+                <select v-model="selectedParent" @change="loadChildOptions" class="px-3 py-2 max-w-full focus:ring focus:outline-none rounded w-full dark:placeholder-gray-400 h-12 border bg-white dark:bg-slate-800 border-gray-700">
+                        <option value="">Pilih Kecamatan</option>
+                        <option
+                            v-for="parent in parents"
+                            :value="parent.kd_wilayah"
+                            :key="parent.kd_wilayah"
+                        >
+                            {{ parent.nama }}
+                        </option>
+                    </select>
             </div>
             <div class="col-span-2">
-                <FormControl
-                    v-model="form.kel"
-                    :options="selectKel"
-                    placeholder="Pilih Kelurahan"
-                />
+               <select v-model="selectedChild" class="px-3 py-2 max-w-full focus:ring focus:outline-none rounded w-full dark:placeholder-gray-400 h-12 border bg-white dark:bg-slate-800 border-gray-700">
+                        <option value="">Pilih Kelurahan</option>
+                        <option
+                            v-for="child in children"
+                            :value="child.kd_wilayah"
+                            :key="child.kd_wilayah"
+                        >
+                            {{ child.nama }}
+                        </option>
+                    </select>
             </div>
             <div class="col-span-1">
                 <button
@@ -72,195 +67,9 @@ const form = reactive({
         </div>
         <div class="grid grid-cols-3 md:grid-cols-5 gap-6 lg:gap-8">
             <div class="pt-4 col-span-6">
-                <!-- <div>
-                    <select v-model="selectedParent" @change="loadChildOptions">
-                        <option value="">Pilih Kecamatan</option>
-                        <option
-                            v-for="parent in parents"
-                            :value="parent.kd_wilayah"
-                            :key="parent.kd_wilayah"
-                        >
-                            {{ parent.nama }}
-                        </option>
-                    </select>
-                    <select v-model="selectedChild">
-                        <option value="">Pilih Kelurahan</option>
-                        <option
-                            v-for="child in children"
-                            :value="child.kd_wilayah"
-                            :key="child.kd_wilayah"
-                        >
-                            {{ child.nama }}
-                        </option>
-                    </select>
-
-                    <button
-                        @click="filterMarker()"
-                        class="font-normal bg-green-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]"
-                    >
-                        Tampilkan
-                    </button>
-                    <button
-                        @click="reloadMap()"
-                        class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]"
-                    >
-                        Atur Ulang
-                    </button>
-                </div> -->
-
                 <div class="rounded-lg" id="mapContainer" />
             </div>
-            <!-- <div class="pt-20 col-span-1">
-                        <h5 class="font-semibold pb-3">Kecamatan</h5>
-                        <div class="p-4 rounded-lg bg-gray-100">
-                            <div class="flex items-center">
-                                <div class="w-4 h-4 rounded bg-red-500"></div>
-                                <div
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >
-                                    Kecamatan A
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-4 h-4 rounded bg-green-500"></div>
-                                <div
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >
-                                    Kecamatan B
-                                </div>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-4 h-4 rounded bg-blue-500"></div>
-                                <div
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                >
-                                    Kecamatan C
-                                </div>
-                            </div>
-                        </div>
-                        <h5 class="font-semibold pt-10 pb-3">Marker</h5>
-                        <div class="p-4 rounded-lg bg-gray-100">
-                            <div class="flex items-center">
-                                <input
-                                    checked
-                                    id="default-radio-1"
-                                    type="radio"
-                                    value=""
-                                    name="default-radio"
-                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
-                                />
-                                <label
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >Fasilitas Kesehatan</label
-                                >
-                            </div>
-                            <div class="flex items-center">
-                                <input
-                                    checked
-                                    id="default-radio-2"
-                                    type="radio"
-                                    value=""
-                                    name="default-radio"
-                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
-                                />
-                                <label
-                                    for="default-radio-2"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >Sarana Pendidikan</label
-                                >
-                            </div>
-                            <div class="flex items-center">
-                                <input
-                                    checked
-                                    id="default-radio-3"
-                                    type="radio"
-                                    value=""
-                                    name="default-radio"
-                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
-                                />
-                                <label
-                                    for="default-radio-3"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >Bank</label
-                                >
-                            </div>
-                            <div class="flex items-center">
-                                <input
-                                    checked
-                                    id="default-radio-4"
-                                    type="radio"
-                                    value=""
-                                    name="default-radio"
-                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
-                                />
-                                <label
-                                    for="default-radio-4"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >Hotel</label
-                                >
-                            </div>
-                            <div class="flex items-center">
-                                <input
-                                    checked
-                                    id="default-radio-5"
-                                    type="radio"
-                                    value=""
-                                    name="default-radio"
-                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
-                                />
-                                <label
-                                    for="default-radio-5"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >Industri</label
-                                >
-                            </div>
-                            <div class="flex items-center">
-                                <input
-                                    checked
-                                    id="default-radio-6"
-                                    type="radio"
-                                    value=""
-                                    name="default-radio"
-                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
-                                />
-                                <label
-                                    for="default-radio-6"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >UMKM</label
-                                >
-                            </div>
-                            <div class="flex items-center">
-                                <input
-                                    checked
-                                    id="default-radio-7"
-                                    type="radio"
-                                    value=""
-                                    name="default-radio"
-                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-1"
-                                />
-                                <label
-                                    for="default-radio-7"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >Kuliner</label
-                                >
-                            </div>
-                            <div class="flex items-center">
-                                <input
-                                    checked
-                                    id="default-radio-8"
-                                    type="radio"
-                                    value=""
-                                    name="default-radio"
-                                    class="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 focus:ring-red-500 focus:ring-2"
-                                />
-                                <label
-                                    for="default-radio-8"
-                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >Sarana Agama</label
-                                >
-                            </div>
-                        </div>
-                    </div>-->
+            
         </div>
     </BodyLanding>
     <FooterLanding />
@@ -324,6 +133,8 @@ export default {
                     maxZoom: 20,
                     maxNativeZoom: 20,
                     subdomains: ["mt0", "mt1", "mt2", "mt3"],
+                    attribution:
+                    "&copy; 2023 Gala Patta Creation All rights reserved.",
                 }
             );
 
@@ -333,9 +144,6 @@ export default {
 
             //layercontrol
             var baseMaps = {
-                OpenStreetMap: osm,
-                Streets: googleStreets,
-                Hybrid: googleHybrid,
                 Satelite: googleSat,
             };
             var overlayMaps = {};
