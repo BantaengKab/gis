@@ -28,11 +28,11 @@ const props = defineProps({
 
 <template>
   <LayoutAuthenticated>
-    <Head title="View Peluang" />
+    <Head title="View Marker" />
     <SectionMain>
       <SectionTitleLineWithButton
         :icon="mdiMapMarkerRadius"
-        title="View Peluang"
+        title="View Marker"
         main
       >
         <BaseButton

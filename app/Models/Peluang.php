@@ -17,5 +17,10 @@ class Peluang extends Model
         return $this->hasOne(Sektor::class, 'id', 'sektor_id');
     }
 
+    public function wilayah()
+    {
+        return $this->hasOne(Wilayah::class, 'kd_wilayah', 'wilayah_id');
+    }
+
 
 }

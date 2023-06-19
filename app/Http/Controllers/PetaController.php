@@ -14,7 +14,7 @@ class PetaController extends Controller
 {
      public function marker()
     {
-        $markers = Peluang::with('sektor')->get(); 
+        $markers = Peluang::with('sektor','wilayah')->get(); 
 
         return response()->json($markers);
     }

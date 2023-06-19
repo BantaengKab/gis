@@ -37,11 +37,11 @@ const form = useForm({
 
 <template>
   <LayoutAuthenticated>
-    <Head title="Create Peluang" />
+    <Head title="Create Marker" />
     <SectionMain>
       <SectionTitleLineWithButton
         :icon="mdiMapMarkerRadius"
-        title="Add Peluang"
+        title="Add Marker"
         main
       >
         <BaseButton

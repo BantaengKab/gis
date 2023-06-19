@@ -47,11 +47,11 @@ function destroy(id) {
 
 <template>
   <LayoutAuthenticated>
-    <Head title="Peluang" />
+    <Head title="Marker" />
     <SectionMain>
       <SectionTitleLineWithButton
         :icon="mdiMapMarkerRadius"
-        title="Peluang"
+        title="Marker"
         main
       >
         <BaseButton

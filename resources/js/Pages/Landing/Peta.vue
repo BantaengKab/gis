@@ -202,9 +202,29 @@ export default {
                         style: function (feature) {
                             return { color: feature.properties.color };
                         },
-                    })
-                        .bindPopup(function (layer) {
-                            return layer.feature.properties.nama;
+                     onEachFeature: function(feature, layer) {
+                        var popupContent = `
+                        <table class="border">
+                            <tr>
+                            <th>Nama</th>
+                            <td>${feature.properties.nama}</td>
+                            </tr>
+                            <tr>
+                            <th>Luas</th>
+                            <td>${feature.properties.luas} km<sup>2</sup></td>
+                            </tr>
+                            <tr>
+                            <th>Desa</th>
+                            <td>${feature.properties.jml_desa}</td>
+                            </tr>
+                             <tr>
+                            <th>Kelurahan</th>
+                            <td>${feature.properties.jml_kel}</td>
+                            </tr>
+                        </table>
+                        `;
+                        layer.bindPopup(popupContent);
+                    }
                         })
                         .addTo(self.map);
                 })
@@ -221,6 +241,30 @@ export default {
 
                     // Loop melalui data marker dan tambahkan marker ke peta
                     markers.forEach((marker) => {
+                        var markerContent = `
+                        <table class="border">
+                            <tr>
+                            <th>Nama</th>
+                            <td>${marker.nama}</td>
+                            </tr>
+                            <tr>
+                            <th>Wilayah</th>
+                            <td>${marker.wilayah.nama}</td>
+                            </tr>
+                            <tr>
+                            <th>Alamat</th>
+                            <td>${marker.alamat}</td>
+                            </tr>
+                            <tr>
+                            <th>Latitude</th>
+                            <td>${marker.lat}</td>
+                            </tr>
+                            <tr>
+                            <th>Longitude</th>
+                            <td>${marker.long}</td>
+                            </tr>
+                        </table>
+                        `;
                         //IconMarker
                         var defaulticon = L.icon({
                             iconUrl: "/icon/" + marker.sektor.icon,
@@ -233,7 +277,7 @@ export default {
                             icon: defaulticon,
                             wilayah: marker.wilayah_id,
                             markerId: marker.id,
-                        }).bindPopup(marker.nama);
+                        }).bindPopup(markerContent);
 
                         // Cek apakah layer group sudah ada atau belum
                         if (
