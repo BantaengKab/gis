@@ -330,6 +330,30 @@ export default {
                     // Loop melalui data marker dan tambahkan marker ke peta
                     markers.forEach((marker) => {
                         //IconMarker
+                         var markerContent = `
+                        <table class="border">
+                            <tr>
+                            <th>Nama</th>
+                            <td>${marker.nama}</td>
+                            </tr>
+                            <tr>
+                            <th>Wilayah</th>
+                            <td>${marker.wilayah.nama}</td>
+                            </tr>
+                            <tr>
+                            <th>Alamat</th>
+                            <td>${marker.alamat}</td>
+                            </tr>
+                            <tr>
+                            <th>Latitude</th>
+                            <td>${marker.lat}</td>
+                            </tr>
+                            <tr>
+                            <th>Longitude</th>
+                            <td>${marker.long}</td>
+                            </tr>
+                        </table>
+                        `;
 
                         if (
                             !this.isDuplicateMarker(
@@ -352,7 +376,7 @@ export default {
                                     wilayah: marker.wilayah_id,
                                     markerId: marker.id,
                                 }
-                            ).bindPopup(marker.nama);
+                            ).bindPopup(markerContent);
 
                             // Tambahkan marker ke layer group yang sesuai
                             this.markerGroups[marker.sektor.nama].addLayer(
