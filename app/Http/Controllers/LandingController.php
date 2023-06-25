@@ -7,10 +7,11 @@ use App\Models\Peluang;
 use App\Models\Wilayah;
 use App\Models\Investasi;
 use App\Models\Sektor;
+use App\Models\KontenInvest;
 use App\Models\Investor;
 use Inertia\Inertia;
 
-class PetaController extends Controller
+class LandingController extends Controller
 {
      public function marker()
     {
@@ -44,4 +45,15 @@ class PetaController extends Controller
             'investasis' => $investasis
         ]);
     }
+
+    public function invest()
+    {
+         $kontens = KontenInvest::all();
+        
+        return Inertia::render('Landing/Invest', [
+            'kontens' => $kontens
+        ]);
+    }
+
+
 }

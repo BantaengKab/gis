@@ -35,7 +35,7 @@ import { mdiEmailOutline, mdiWhatsapp } from "@mdi/js";
                             w="w-4"
                             class="mr-3"
                         />
-                        <p class="">galappttacreation@gmail.com</p>
+                        <p class="">galapattacreation@gmail.com</p>
                     </div>
                 </div>
                 <div class="sm:col-span-1">

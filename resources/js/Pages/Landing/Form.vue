@@ -75,7 +75,7 @@ const formStatusSubmit = () => {
             main
         >
             <BaseButton
-                href="https://github.com/justboil/admin-one-vue-tailwind"
+                href="https://gis.galapattacreation.com/peta"
                 target="_blank"
                 label="Lihat Peta Potensi"
                 color="contrast"

@@ -23,10 +23,8 @@ use Inertia\Inertia;
 //         'phpVersion' => PHP_VERSION,
 //     ]);
 // });
-Route::get('/', [App\Http\Controllers\PetaController::class, 'beranda'])->name('/');
-Route::get('investasi', function () {
-    return Inertia::render('Landing/Invest');
-})->name('investasi');
+Route::get('/', [App\Http\Controllers\LandingController::class, 'beranda'])->name('/');
+Route::get('investasi', [App\Http\Controllers\LandingController::class, 'invest'])->name('investasi');
 
 Route::get('form', function () {
     return Inertia::render('Landing/Form');
@@ -40,8 +38,8 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/markers', [App\Http\Controllers\PetaController::class, 'marker']);
-Route::get('/kecamatans', [App\Http\Controllers\PetaController::class, 'getKecamatan']);
-Route::get('/kelurahans/{parentId}', [App\Http\Controllers\PetaController::class, 'getKelurahan']);
+Route::get('/markers', [App\Http\Controllers\LandingController::class, 'marker']);
+Route::get('/kecamatans', [App\Http\Controllers\LandingController::class, 'getKecamatan']);
+Route::get('/kelurahans/{parentId}', [App\Http\Controllers\LandingController::class, 'getKelurahan']);
 
 require __DIR__.'/auth.php';

@@ -9,6 +9,7 @@ Route::group([
     Route::resource('role', 'RoleController');
     Route::resource('permission', 'PermissionController');
     Route::resource('sektor', 'SektorController');
+    Route::resource('konten', 'KontenController');
     Route::resource('investor', 'InvestorController');
     Route::resource('peluang', 'PeluangController');
     Route::resource('investasi', 'InvestasiController');
