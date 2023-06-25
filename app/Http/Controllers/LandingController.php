@@ -48,7 +48,7 @@ class LandingController extends Controller
 
     public function invest()
     {
-         $kontens = KontenInvest::all();
+         $kontens = KontenInvest::orderBy('no_urut', 'asc')->get();
         
         return Inertia::render('Landing/Invest', [
             'kontens' => $kontens
