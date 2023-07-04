@@ -10,7 +10,8 @@ import {
   mdiMonitorCellphone,
   mdiReload,
   mdiGithub,
-  mdiChartPie
+  mdiChartPie,
+  mdiMapMarkerRadius
 } from '@mdi/js'
 import * as chartConfig from '@/Components/Charts/chart.config.js'
 import LineChart from '@/Components/Charts/LineChart.vue'
@@ -33,6 +34,21 @@ onMounted(() => {
   fillChartData()
 })
 const mainStore = useMainStore()
+
+const props = defineProps({
+  investor: {
+    type: Object,
+    default: () => ({}),
+  },
+  peluang: {
+    type: Object,
+    default: () => ({}),
+  },
+  investasi: {
+    type: Object,
+    default: () => ({}),
+  }
+})
 
 /* Fetch sample data */
 mainStore.fetch('clients')
@@ -58,26 +74,22 @@ const transactionBarItems = computed(() => mainStore.history)
         <CardBoxWidget
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
-          :number="512"
-          label="Clients"
+          :number="investor"
+          label="Investor"
         />
         <CardBoxWidget
-          trend="12%"
-          trend-type="down"
           color="text-blue-500"
-          :icon="mdiCartOutline"
-          :number="7770"
+          :icon="mdiChartTimelineVariant"
+          :number="investasi"
           prefix="$"
-          label="Sales"
+          label="Investasi"
         />
         <CardBoxWidget
-          trend="Overflow"
-          trend-type="alert"
           color="text-red-500"
-          :icon="mdiChartTimelineVariant"
-          :number="256"
-          suffix="%"
-          label="Performance"
+          :icon="mdiMapMarkerRadius"
+          :number="peluang"
+          suffix="Titik"
+          label="Marker/Peluang"
         />
       </div>
 
