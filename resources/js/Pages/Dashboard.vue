@@ -83,72 +83,11 @@ const transactionBarItems = computed(() => mainStore.history)
         />
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-        <div class="flex flex-col justify-between">
-          <CardBoxTransaction
-            v-for="(transaction,index) in transactionBarItems"
-            :key="index"
-            :amount="transaction.amount"
-            :date="transaction.date"
-            :business="transaction.business"
-            :type="transaction.type"
-            :name="transaction.name"
-            :account="transaction.account"
-          />
-        </div>
-        <div class="flex flex-col justify-between">
-          <CardBoxClient
-            v-for="client in clientBarItems"
-            :key="client.id"
-            :name="client.name"
-            :login="client.login"
-            :date="client.created"
-            :progress="client.progress"
-          />
-        </div>
-      </div>
+      
 
-      <SectionBannerStarOnGitHub />
+      
 
-      <SectionTitleLineWithButton
-        :icon="mdiChartPie"
-        title="Trends overview"
-      />
-
-      <CardBox
-        title="Performance"
-        :icon="mdiFinance"
-        :header-icon="mdiReload"
-        class="mb-6"
-        @header-icon-click="fillChartData"
-      >
-        <div v-if="chartData">
-          <line-chart
-            :data="chartData"
-            class="h-96"
-          />
-        </div>
-      </CardBox>
-
-      <SectionTitleLineWithButton
-        :icon="mdiAccountMultiple"
-        title="Clients"
-      />
-
-      <NotificationBar
-        color="info"
-        :icon="mdiMonitorCellphone"
-      >
-        <b>Responsive table.</b> Collapses on mobile
-      </NotificationBar>
-
-      <CardBox
-        :icon="mdiMonitorCellphone"
-        title="Responsive table"
-        has-table
-      >
-        <TableSampleClients />
-      </CardBox>
+      
     </SectionMain>
   </LayoutAuthenticated>
 </template>
