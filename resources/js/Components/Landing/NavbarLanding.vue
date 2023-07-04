@@ -3,10 +3,11 @@
         <div
             class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 px-10"
         >
-            <a href="https://flowbite.com/" class="flex items-center">
+            <a href="https://bantaengkab.go.id/" class="flex items-center">
                 <img
                     src="../../../../public/assets/Kabupaten_Bantaeng.png"
-                    class="h-10 mr-2"
+                    class="mr-2"
+                    width-"100px"
                     alt=""
                 />
             </a>
