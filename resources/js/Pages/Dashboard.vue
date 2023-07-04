@@ -56,8 +56,6 @@ const transactionBarItems = computed(() => mainStore.history)
       
       <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
         <CardBoxWidget
-          trend="12%"
-          trend-type="up"
           color="text-emerald-500"
           :icon="mdiAccountMultiple"
           :number="512"
