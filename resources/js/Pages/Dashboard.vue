@@ -81,14 +81,14 @@ const transactionBarItems = computed(() => mainStore.history)
           color="text-blue-500"
           :icon="mdiChartTimelineVariant"
           :number="investasi"
-          prefix="$"
+          prefix="Rp."
           label="Investasi"
         />
         <CardBoxWidget
           color="text-red-500"
           :icon="mdiMapMarkerRadius"
           :number="peluang"
-          suffix="Titik"
+          suffix=" Titik"
           label="Marker/Peluang"
         />
       </div>
