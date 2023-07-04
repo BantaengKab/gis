@@ -34,9 +34,7 @@ Route::get('peta', function () {
     return Inertia::render('Landing/Peta');
 })->name('peta');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/markers', [App\Http\Controllers\LandingController::class, 'marker']);
 Route::get('/kecamatans', [App\Http\Controllers\LandingController::class, 'getKecamatan']);
