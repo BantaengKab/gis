@@ -10,24 +10,23 @@ import { mdiEmailOutline, mdiWhatsapp } from "@mdi/js";
                 <div class="sm:col-span-2 pr-10">
                     <div class="inline-flex items-center">
                         <img
-                            src="../../../../public/assets/logo.png"
+                            src="../../../../public/assets/Kabupaten_Bantaeng.png"
                             class="h-10 mr-2"
                             alt=""
                         />
                     </div>
                     <p class="pt-3">
-                        Jl. Bungung Barania, Pallantikang, Kec. Bantaeng, Kabupaten
-                        Bantaeng, Sulawesi Selatan 90231
+                       Jl. Kartini No.2 , Kabupaten Bantaeng 
                     </p>
                     <p class="pt-3 text-red-600">
-                        © 2023 Gala Patta Creation All rights reserved.
+                        © 2023 Dinas Penanaman Modal dan Pelayanan Perizinan Terpadu - Support By: Dinas Komunikasi Informatika Statistik Dan Persandian.
                     </p>
                 </div>
                 <div class="sm:col-span-1">
                     <h1 class="text-xl font-medium">Kontak Kami</h1>
                     <div class="inline-flex items-center pt-3">
                         <BaseIcon :path="mdiWhatsapp" w="w-4" class="mr-3" />
-                        <p class="">+62 852-5616-3343</p>
+                        <p class="">(0413) 23603/085242720703</p>
                     </div>
                     <div class="inline-flex items-center pt-3">
                         <BaseIcon
@@ -35,7 +34,7 @@ import { mdiEmailOutline, mdiWhatsapp } from "@mdi/js";
                             w="w-4"
                             class="mr-3"
                         />
-                        <p class="">galapattacreation@gmail.com</p>
+                        <p class="">dpmptsp@bantaengkab.go.id</p>
                     </div>
                 </div>
                 <div class="sm:col-span-1">

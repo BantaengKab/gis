@@ -5,7 +5,7 @@
         >
             <a href="https://flowbite.com/" class="flex items-center">
                 <img
-                    src="../../../../public/assets/logo.png"
+                    src="../../../../public/assets/Kabupaten_Bantaeng.png"
                     class="h-10 mr-2"
                     alt=""
                 />
