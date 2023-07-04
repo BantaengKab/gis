@@ -7,7 +7,7 @@
                 <img
                     src="../../../../public/assets/Kabupaten_Bantaeng.png"
                     class="mr-2"
-                    width-"100px"
+                    width="100px"
                     alt=""
                 />
             </a>
