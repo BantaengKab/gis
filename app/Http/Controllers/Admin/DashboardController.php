@@ -16,11 +16,11 @@ class DashboardController extends Controller
     {
         $investor = Investor::count();
         $peluang = Peluang::count();
-        $Investasi = Peluang::sum('rencana');
+        $investasi = Investasi::sum('rencana');
         return Inertia::render('Dashboard', [
             'peluang' => $peluang,
             'investor' => $investor,
-            'investasi' => $Investasi,
+            'investasi' => $investasi,
         ]);
     }
 }
