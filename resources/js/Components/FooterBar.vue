@@ -18,14 +18,17 @@ const year = computed(() => new Date().getFullYear())
        
       </div>
       <div class="md:py-2">
-       <div class="inline-flex items-center">
-                        <img
-                            src="../../../../public/assets/logo.png"
-                            class="h-10 mr-2"
-                            alt=""
-                        />
-                    </div>
+         <img :src="getImageUrl('logo.png')" class="w-auto h-8 md:h-6" alt="">
       </div>
     </BaseLevel>
   </footer>
 </template>
+<script>
+export default {
+  methods: {
+    getImageUrl(filename) {
+      return "/assets/" + filename;
+    },
+  },
+};
+</script>
