@@ -2,7 +2,7 @@
 defineProps({
     showBtn: {
         type: Boolean,
-        required: false,
+        required: true,
     },
 });
 </script>
@@ -19,13 +19,10 @@ defineProps({
             <p class="pt-8 text-xl/[30px]">
                 Yuk, jadilah bagian dari kesuksesan masa depan! Investasikan
                 dana Anda dan dapatkan keuntungan yang berkelanjutan.
-                <!-- <button  @click="filterMarker('730305');">industri</button>
-                            <button  @click="filterMarker('7303021002');">kesehatan</button>
-                            <button type="button"  @click="reloadMap();">Reload</button> -->
             </p>
             <div class="pt-10">
                 <Link
-                    :href="route('login')"
+                    :href="route('form')"
                     v-if="showBtn == true"
                     class="font-normal bg-red-600 text-white py-2 px-10 rounded-md inline text-xl/[30px]"
                     >Investasi Sekarang</Link
