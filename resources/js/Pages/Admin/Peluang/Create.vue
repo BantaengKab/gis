@@ -67,6 +67,7 @@ const form = useForm({
             placeholder="Pilih Sektor"
             :error="form.errors.sektor_id"
             :options="sektor"
+            :required="true"
           >
             <div class="text-red-400 text-sm" v-if="form.errors.sektor_id">
               {{ form.errors.sektor_id }}
@@ -85,6 +86,7 @@ const form = useForm({
             placeholder="Pilih Wilayah"
             :error="form.errors.wilayah_id"
             :options="wilayah"
+            :required="true"
           >
             <div class="text-red-400 text-sm" v-if="form.errors.wilayah_id">
               {{ form.errors.wilayah_id }}
@@ -102,6 +104,7 @@ const form = useForm({
             type="text"
             placeholder="Enter Nama"
             :error="form.errors.nama"
+            :required="true"
           >
             <div class="text-red-400 text-sm" v-if="form.errors.nama">
               {{ form.errors.nama }}
