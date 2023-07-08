@@ -30,10 +30,10 @@ const props = defineProps({
 
 const form = useForm({
   _method: 'put',
-  nama: props.investasi.nama,
-  alamat: props.investasi.alamat,
-  lat: props.investasi.lat,
-  long: props.investasi.long,
+   rencana: props.investasi.rencana,
+  realisasi: props.investasi.realisasi,
+  tgl_rencana: props.investasi.tgl_rencana,
+  tgl_realisasi: props.investasi.tgl_realisasi,
   sektor_id: props.investasi.sektor_id,
   investor_id: props.investasi.investor_id,
   

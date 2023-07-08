@@ -26,8 +26,8 @@ const props = defineProps({
 })
 
 const form = useForm({
-  rencana: '',
-  realisasi: '',
+  rencana: '0',
+  realisasi: '0',
   tgl_rencana: '',
   tgl_realisasi: '',
   sektor_id: '',

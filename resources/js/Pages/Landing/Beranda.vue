@@ -22,7 +22,7 @@ const props = defineProps({
     <BodyLanding>
         <HeadBanner :showBtn="true" />
         <h2 class="pt-20 mt-20 pb-10 text-2xl/[30px] font-bold">
-            Rencana Investasi Kabupaten Bantaeng Tahun 2023
+           Data Investasi Kabupaten Bantaeng 
         </h2>
         <div class="border rounded-xl" has-table>
             <table>
@@ -37,6 +37,9 @@ const props = defineProps({
                 </th>
                 <th class="text-center">
                 Realisasi
+                </th>
+                 <th class="text-center">
+                Tahun
                 </th>
             </tr>
           </thead>
@@ -54,6 +57,9 @@ const props = defineProps({
                 </td>
                 <td data-label="Realisasi" class="text-center">
                     {{ investasi.realisasi.toLocaleString(undefined, { style: 'currency', currency: 'IDR' }) }}
+                </td>
+                 <td data-label="Tahun" class="text-center">
+                    {{ investasi.tgl_rencana.substring(0, 4) }}
                 </td>
             </tr>
           </tbody>
