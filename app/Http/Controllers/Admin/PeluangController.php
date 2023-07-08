@@ -9,6 +9,7 @@ use App\Models\Sektor;
 use App\Models\Wilayah;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
 
 class PeluangController extends Controller
 {
@@ -76,6 +77,19 @@ class PeluangController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nama' => 'required',
+             'sektor_id' => 'required',
+              'wilayah_id' => 'required',
+            // Add validation rules for other fields here
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         Peluang::create($request->all());
 
         return redirect()->route('peluang.index')

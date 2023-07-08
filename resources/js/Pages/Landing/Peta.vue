@@ -263,6 +263,18 @@ export default {
                             <th>Longitude</th>
                             <td>${marker.long}</td>
                             </tr>
+                            ${marker.nib ? `
+                            <tr>
+                                <th>Kontak</th>
+                                <td>${marker.nib}</td>
+                            </tr>
+                        ` : ''}
+                             ${marker.kontak ? `
+                            <tr>
+                                <th>Kontak</th>
+                                <td>${marker.kontak}</td>
+                            </tr>
+                        ` : ''}
                         </table>
                         `;
                         //IconMarker
