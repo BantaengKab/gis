@@ -35,6 +35,13 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+
+        if ($request->user()) {
+            $userRole = ($request->user()->id == 4) ? 'skpd' : 'admin';
+        } else {
+            $userRole = 'admin';
+        }
+
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
@@ -45,10 +52,10 @@ class HandleInertiaRequests extends Middleware
                 ]);
             },
             'flash' => [
-                'message' => fn () => $request->session()->get('message'),
+                'message' => fn() => $request->session()->get('message'),
             ],
             'navigation' => [
-                'menu' => Menu::getMenuTree('admin')
+                'menu' => Menu::getMenuTree($userRole)
             ]
         ]);
     }
