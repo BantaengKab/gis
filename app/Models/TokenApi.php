@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class TokenApi extends Model
 {
     use HasFactory;
+
+    protected $table = 'token_api';
+    protected $guarded = ['id'];
 }
