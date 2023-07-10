@@ -23,6 +23,7 @@ class DashboardController extends Controller
             'client_secret' => 'fh6OdJ7O_atJ6fz5S0LsO_6xLR4a',
             'grant_type' => 'client_credentials',
         ]);
+        $responseData = '';
         if ($response->successful()) {
             // Request was successful, handle the response
             $responseData = $response->json();
