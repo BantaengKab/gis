@@ -9,6 +9,7 @@ use App\Models\Peluang;
 use App\Models\Investor;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Http;
 
 class DashboardController extends Controller
 {
