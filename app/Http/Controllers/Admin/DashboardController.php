@@ -25,7 +25,7 @@ class DashboardController extends Controller
         ]);
         if ($response->successful()) {
             // Request was successful, handle the response
-           return $response->json();
+            $responseData = $response->json();
             // Process the response data
         } else {
             // Request failed, handle the error
@@ -34,18 +34,18 @@ class DashboardController extends Controller
             // Handle the error accordingly
         }
 
+        return $responseData;
 
-
-        $investor = Investor::count();
-        $peluang = Peluang::count();
-        $rencana = Investasi::sum('rencana');
-        $realisasi = Investasi::sum('realisasi');
-        return Inertia::render('Dashboard', [
-            'peluang' => $peluang,
-            'investor' => $investor,
-            'rencana' => $rencana,
-            'realisasi' => $realisasi,
-        ]);
+        // $investor = Investor::count();
+        // $peluang = Peluang::count();
+        // $rencana = Investasi::sum('rencana');
+        // $realisasi = Investasi::sum('realisasi');
+        // return Inertia::render('Dashboard', [
+        //     'peluang' => $peluang,
+        //     'investor' => $investor,
+        //     'rencana' => $rencana,
+        //     'realisasi' => $realisasi,
+        // ]);
 
 
 
