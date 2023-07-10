@@ -39,7 +39,7 @@ class HandleInertiaRequests extends Middleware
 
         if ($request->user()) {
             $user = Auth::user();
-            $userRole = $user->roles->name;
+            $userRole = $user->roles->pluck('name')->first();
         } else {
             $userRole = 'skpd';
         }
