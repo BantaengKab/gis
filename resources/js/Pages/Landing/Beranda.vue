@@ -8,12 +8,11 @@ import Pagination from "@/Components/Admin/Pagination.vue";
 import { Head, Link } from "@inertiajs/vue3";
 
 const props = defineProps({
-  investasis: {
-    type: Object,
-    default: () => ({}),
-  },
+    investasis: {
+        type: Object,
+        default: () => ({}),
+    },
 });
-
 </script>
 
 <template>
@@ -22,51 +21,60 @@ const props = defineProps({
     <BodyLanding>
         <HeadBanner :showBtn="true" />
         <h2 class="pt-20 mt-20 pb-10 text-2xl/[30px] font-bold">
-           Data Investasi Kabupaten Bantaeng 
+            Data Investasi Kabupaten Bantaeng
         </h2>
         <div class="border rounded-xl" has-table>
             <table>
-          <thead>
-            <tr>
-                <th class="text-center">
-                Investor
-                </th>
-                <th class="text-center">Alamat</th>
-                <th class="text-center">
-                Rencana
-                </th>
-                <th class="text-center">
-                Realisasi
-                </th>
-                 <th class="text-center">
-                Tahun
-                </th>
-            </tr>
-          </thead>
+                <thead>
+                    <tr>
+                        <th class="text-center">NIB</th>
+                        <th class="text-center">Investor</th>
+                        <th class="text-center">Alamat</th>
+                        <th class="text-center">Rencana</th>
+                        <th class="text-center">Realisasi</th>
+                        <th class="text-center">Tahun</th>
+                    </tr>
+                </thead>
 
-          <tbody>
-            <tr v-for="investasi in investasis.data" :key="investasi.id">
-              <td data-label="Investor" class="text-center">
-                  {{ investasi.investor.nama }}
-              </td>
-              <td data-label="Alamat">
-                {{ investasi.investor.alamat }}
-              </td>
-              <td data-label="Rencana" class="text-center">
-                    {{ investasi.rencana.toLocaleString(undefined, { style: 'currency', currency: 'IDR' }) }}
-                </td>
-                <td data-label="Realisasi" class="text-center">
-                    {{ investasi.realisasi.toLocaleString(undefined, { style: 'currency', currency: 'IDR' }) }}
-                </td>
-                 <td data-label="Tahun" class="text-center">
-                    {{ investasi.tgl_rencana.substring(0, 4) }}
-                </td>
-            </tr>
-          </tbody>
-        </table>
-         <div class="py-4">
-          <Pagination :data="investasis" />
-        </div>
+                <tbody>
+                    <tr
+                        v-for="investasi in investasis.data"
+                        :key="investasi.id"
+                    >
+                        <td data-label="NIB" class="text-center">
+                            {{ investasi.investor.nib }}
+                        </td>
+                        <td data-label="Investor" class="text-center">
+                            {{ investasi.investor.nama }}
+                        </td>
+                        <td data-label="Alamat">
+                            {{ investasi.investor.alamat }}
+                        </td>
+                        <td data-label="Rencana" class="text-center">
+                            {{
+                                investasi.rencana.toLocaleString(undefined, {
+                                    style: "currency",
+                                    currency: "IDR",
+                                })
+                            }}
+                        </td>
+                        <td data-label="Realisasi" class="text-center">
+                            {{
+                                investasi.realisasi.toLocaleString(undefined, {
+                                    style: "currency",
+                                    currency: "IDR",
+                                })
+                            }}
+                        </td>
+                        <td data-label="Tahun" class="text-center">
+                            {{ investasi.tgl_rencana.substring(0, 4) }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="py-4">
+                <Pagination :data="investasis" />
+            </div>
         </div>
     </BodyLanding>
     <FooterLanding />
