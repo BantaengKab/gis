@@ -30,9 +30,9 @@ Route::get('form', function () {
     return Inertia::render('Landing/Form');
 })->name('form');
 
-// Route::get('peta', function () {
-//     return Inertia::render('Landing/Peta');
-// })->name('peta');
+Route::get('peta', function () {
+    return Inertia::render('Landing/Peta');
+})->name('peta');
 
 Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
