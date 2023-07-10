@@ -27,7 +27,7 @@ class InvestasiController extends Controller
     public function index()
     {
          $investasis = (new Investasi)->newQuery();
-        $investasis->with('investor');
+        $investasis->with('investor','wilayah');
         if (request()->has('search')) {
             $investasis->whereRelation('investor','nama', 'Like', '%'.request()->input('search').'%');
         } else {
