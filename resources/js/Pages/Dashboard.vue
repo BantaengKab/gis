@@ -44,7 +44,11 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
-  investasi: {
+  rencana: {
+    type: Object,
+    default: () => ({}),
+  }
+  realisasi: {
     type: Object,
     default: () => ({}),
   }
@@ -59,45 +63,45 @@ const transactionBarItems = computed(() => mainStore.history)
 </script>
 
 <template>
-  <LayoutAuthenticated>
-    <Head title="Dashboard" />
-    <SectionMain>
-      <SectionTitleLineWithButton
-        :icon="mdiChartTimelineVariant"
-        title="Overview"
-        main
-      >
-       
-      </SectionTitleLineWithButton>
-      
-      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3 mb-6">
-        <CardBoxWidget
-          color="text-emerald-500"
-          :icon="mdiAccountMultiple"
-          :number="investor"
-          label="Investor"
-        />
-        <CardBoxWidget
-          color="text-blue-500"
-          :icon="mdiChartTimelineVariant"
-          :number="investasi"
-          prefix="Rp."
-          label="Investasi"
-        />
-        <CardBoxWidget
-          color="text-red-500"
-          :icon="mdiMapMarkerRadius"
-          :number="peluang"
-          suffix=" Titik"
-          label="Marker/Peluang"
-        />
-      </div>
+    <LayoutAuthenticated>
+        <Head title="Dashboard" />
+        <SectionMain>
+            <SectionTitleLineWithButton
+                :icon="mdiChartTimelineVariant"
+                title="Overview"
+                main
+            >
+            </SectionTitleLineWithButton>
 
-      
-
-      
-
-      
-    </SectionMain>
-  </LayoutAuthenticated>
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 mb-6">
+                <CardBoxWidget
+                    color="text-blue-500"
+                    :icon="mdiChartTimelineVariant"
+                    :number="investasi"
+                    prefix="Rp."
+                    label="Rencana Investasi"
+                />
+                <CardBoxWidget
+                    color="text-blue-500"
+                    :icon="mdiChartTimelineVariant"
+                    :number="investasi"
+                    prefix="Rp."
+                    label="Realisasi Investasi"
+                />
+                <CardBoxWidget
+                    color="text-red-500"
+                    :icon="mdiMapMarkerRadius"
+                    :number="peluang"
+                    suffix=" Titik"
+                    label="Marker/Peluang"
+                />
+                <CardBoxWidget
+                    color="text-emerald-500"
+                    :icon="mdiAccountMultiple"
+                    :number="investor"
+                    label="Investor"
+                />
+            </div>
+        </SectionMain>
+    </LayoutAuthenticated>
 </template>
