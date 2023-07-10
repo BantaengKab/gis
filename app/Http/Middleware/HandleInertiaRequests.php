@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tightenco\Ziggy\Ziggy;
 use BalajiDharma\LaravelMenu\Models\Menu;
+use Illuminate\Support\Facades\Auth;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -37,9 +38,10 @@ class HandleInertiaRequests extends Middleware
     {
 
         if ($request->user()) {
-            $userRole = ($request->user()->id == 4) ? 'skpd' : 'admin';
+            $user = Auth::user();
+            $userRole = $user->roles->name;
         } else {
-            $userRole = 'admin';
+            $userRole = 'skpd';
         }
 
         return array_merge(parent::share($request), [
