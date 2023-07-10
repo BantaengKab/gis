@@ -77,14 +77,14 @@ const transactionBarItems = computed(() => mainStore.history);
                 <CardBoxWidget
                     color="text-blue-500"
                     :icon="mdiChartTimelineVariant"
-                    :number="investasi"
+                    :number="rencana"
                     prefix="Rp."
                     label="Rencana Investasi"
                 />
                 <CardBoxWidget
                     color="text-blue-500"
                     :icon="mdiChartTimelineVariant"
-                    :number="investasi"
+                    :number="realisasi"
                     prefix="Rp."
                     label="Realisasi Investasi"
                 />
