@@ -151,8 +151,8 @@ class PeluangController extends Controller
             $sektor = $sektorCol->pluck("id");
 
         }
-        $cek = $peluang->whereNotIn('sektor_id', $sektor)->get();
-        if ($cek) {
+        $cek = $peluang->whereIn('sektor_id', $sektor)->get();
+        if ($cek->count() < 1) {
             return redirect()->route('peluang.index')
             ->with('message', __('Maaf.'));
         }
