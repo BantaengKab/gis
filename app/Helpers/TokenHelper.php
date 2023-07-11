@@ -4,6 +4,9 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\Http;
 use App\Models\TokenApi;
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
+use GuzzleHttp\Exception\RequestException;
 
 class TokenHelper
 {
@@ -16,34 +19,50 @@ class TokenHelper
             return $token;
         }
 
-       $response = Http::withHeaders([
-            'Content-Type' => 'application/x-www-form-urlencoded',
-        ])->post('https://splp.layanan.go.id/oauth2/token', [
-            'client_id' => 'zxoPNxYWkLVuWRzynxkW799BnGoa',
-            'client_secret' => 'fh6OdJ7O_atJ6fz5S0LsO_6xLR4a',
-            'grant_type' => 'client_credentials',
-        ]);
-        if ($response->successful()) {
-            // Request was successful, handle the response
-            $responseData = $response->json();
-            // Process the response data
-        } else {
-            // Request failed, handle the error
-            $errorCode = $response->status();
-            $errorMessage = $response->body();
-            // Handle the error accordingly
+        $client = new Client();
+
+        try {
+            $response = $client->request('POST', 'https://splp.layanan.go.id/oauth2/token', [
+                RequestOptions::FORM_PARAMS => [
+                    'client_id' => 'zxoPNxYWkLVuWRzynxkW799BnGoa',
+                    'client_secret' => 'fh6OdJ7O_atJ6fz5S0LsO_6xLR4a',
+                    'grant_type' => 'client_credentials',
+                ],
+                RequestOptions::HEADERS => [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'Cookie' => 'INGRESSCOOKIE=1688906562.328.10847.921469|535ad0017083e3dc73b7f3bf259b869e',
+                ],
+            ]);
+
+            $statusCode = $response->getStatusCode();
+            $responseData = json_decode($response->getBody(), true);
+
+            if ($statusCode >= 200 && $statusCode < 300) {
+                // Permintaan berhasil (kode status 2xx)
+                // Lakukan sesuatu dengan isi respons
+                TokenApi::create([
+                    'token' => $responseData['access_token'],
+                    'expires_in' => $responseData['expires_in'],
+                ]);
+
+                return $responseData['access_token'];
+            } else {
+                // Permintaan gagal (kode status selain 2xx)
+                // Lakukan penanganan kesalahan yang sesuai
+                logger("Permintaan gagal dengan kode status: " . $statusCode);
+            }
+        } catch (RequestException $e) {
+            // Terjadi kesalahan saat melakukan permintaan
+            // Lakukan penanganan kesalahan yang sesuai
+            logger("Terjadi kesalahan saat melakukan permintaan: " . $e->getMessage());
         }
-        $token = // Logika untuk mengambil token dari API
 
-        // Simpan token di database
-        TokenApi::create(['token' => $token]);
 
-        return $token;
     }
 
     public static function isTokenExpired()
     {
-        $expiryTime = TokenApi::pluck('expiry_time')->first();
+        $expiryTime = TokenApi::pluck('expires_in')->first();
 
         if ($expiryTime) {
             return time() > $expiryTime;

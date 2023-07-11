@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\TokenHelper;
 use Illuminate\Http\Request;
 use App\Models\Peluang;
 use App\Models\Wilayah;
@@ -11,11 +12,12 @@ use App\Models\KontenInvest;
 use App\Models\Investor;
 use Inertia\Inertia;
 
+
 class LandingController extends Controller
 {
-     public function marker()
+    public function marker()
     {
-        $markers = Peluang::with('sektor','wilayah')->get(); 
+        $markers = Peluang::with('sektor', 'wilayah')->get();
 
         return response()->json($markers);
     }
@@ -35,12 +37,12 @@ class LandingController extends Controller
 
     public function beranda()
     {
-         $investasis = Investasi::query()
-        ->with('investor')
-        ->paginate(5)
-        ->onEachSide(2)
-        ->appends(request()->query());
-        
+        $investasis = Investasi::query()
+            ->with('investor')
+            ->paginate(5)
+            ->onEachSide(2)
+            ->appends(request()->query());
+
         return Inertia::render('Landing/Beranda', [
             'investasis' => $investasis
         ]);
@@ -48,12 +50,19 @@ class LandingController extends Controller
 
     public function invest()
     {
-         $kontens = KontenInvest::orderBy('no_urut', 'asc')->get();
-        
+        $kontens = KontenInvest::orderBy('no_urut', 'asc')->get();
+
         return Inertia::render('Landing/Invest', [
             'kontens' => $kontens
         ]);
     }
 
+
+    public function testing()
+    {
+
+
+        return TokenHelper::getToken();
+    }
 
 }
