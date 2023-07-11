@@ -22,7 +22,11 @@ class InvestasiRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'rencana' => ['required'],
+            'tgl_rencana' => ['required'],
+            'investor_id' => ['required'],
+            'sektor_id' => ['required'],
+            'wilayah_id' => ['required'],
         ];
     }
 }

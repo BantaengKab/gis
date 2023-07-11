@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\KontenRequest;
 use App\Models\KontenInvest;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -66,7 +67,7 @@ class KontenController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(KontenRequest $request)
     {   
         $data = $request->all();
          if ($request->hasFile('img')) {

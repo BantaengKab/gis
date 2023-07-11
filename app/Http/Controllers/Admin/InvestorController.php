@@ -70,7 +70,6 @@ class InvestorController extends Controller
      */
     public function store(InvestorRequest $request)
     {
-        logger($request->all());
 
         Investor::create($request->all());
 

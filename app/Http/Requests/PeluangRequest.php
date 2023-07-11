@@ -26,8 +26,6 @@ class PeluangRequest extends FormRequest
             'alamat' => ['required'],
             'lat' => ['required'],
             'long' => ['required'],
-            'kontak' => ['required'],
-            'nib' => ['required'],
             'sektor_id' => ['required'],
             'wilayah_id' => ['required'],
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\SektorRequest;
 use App\Models\Sektor;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -66,7 +67,7 @@ class SektorController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SektorRequest $request)
     {   
         $data = $request->all();
          if ($request->hasFile('icon')) {

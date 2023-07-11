@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InvestasiRequest;
 use Illuminate\Http\Request;
 use App\Models\Investasi;
 use App\Models\Sektor;
@@ -74,7 +75,7 @@ class InvestasiController extends Controller
      /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(InvestasiRequest $request)
     {
         Investasi::create($request->all());
 
