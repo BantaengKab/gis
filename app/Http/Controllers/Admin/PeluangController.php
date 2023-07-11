@@ -152,8 +152,6 @@ class PeluangController extends Controller
 
         }
         $cek = Peluang::where('id',$peluang->id)->whereIn('sektor_id', $sektor)->get();
-        dump($cek->count());
-        dump($peluang->id);
         if ($cek->count() < 1) {
             return redirect()->route('peluang.index')
             ->with('message', __('Maaf.'));
