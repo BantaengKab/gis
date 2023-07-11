@@ -11,4 +11,9 @@ class Sektor extends Model
 
      protected $table = 'sektor';
     protected $guarded = ['id'];
+
+    public function user_has_sektor()
+    {
+        return $this->belongsTo(UserHasSektor::class);
+    }
 }

@@ -65,7 +65,23 @@ class PeluangController extends Controller
      */
     public function create()
     {
-        $sektor = Sektor::all()->pluck("nama", "id");
+        $user = Auth::user();
+        
+        if ($user->id == 1 || $user->id == 2) {
+
+            $sektor = Sektor::all()->pluck("nama", "id");
+
+        } else {
+
+            $sektorCol = collect();
+            foreach ($user->user_has_sektor as $uhs) {
+                $sektorCol = $sektorCol->concat($uhs->sektor);
+            }
+            $sektor = $sektorCol->pluck("nama", "id");
+
+        }
+        
+        
         $wilayah = Wilayah::all()->pluck("nama", "kd_wilayah");
         return Inertia::render('Admin/Peluang/Create', [
             'sektor' => $sektor,
