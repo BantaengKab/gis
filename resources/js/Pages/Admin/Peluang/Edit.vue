@@ -89,6 +89,7 @@ const form = useForm({
                     <FormControl
                         v-model="form.sektor_id"
                         type="select"
+                        disabled
                         placeholder="Pilih Sektor"
                         :error="form.errors.sektor_id"
                         :options="sektor"
