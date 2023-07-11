@@ -150,7 +150,7 @@ class PeluangController extends Controller
                 $sektorCol = $sektorCol->concat($uhs->sektor);
             }
             $sektor = $sektorCol->pluck("id","name");
-            $sektor_id = $sektor->keys()->toArray();
+            $sektor_id = $sektor->pluck("id");
 
         }
         $cek = Peluang::where('id',$peluang->id)->whereIn('sektor_id', $sektor_id)->get();
