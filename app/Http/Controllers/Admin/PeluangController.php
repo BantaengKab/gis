@@ -145,16 +145,12 @@ class PeluangController extends Controller
 
         } else {
 
-            $sektorColId = collect();
             $sektorCol = collect();
-            foreach ($user->user_has_sektor as $uhs) {
-                $sektorColId = $sektorColId->concat($uhs->sektor);
-            }
             foreach ($user->user_has_sektor as $uhs) {
                 $sektorCol = $sektorCol->concat($uhs->sektor);
             }
-            $sektor_id = $sektorColId->pluck("id");
             $sektor = $sektorCol->pluck("id","name");
+            $sektor_id = $sektor->keys()->toArray();
 
         }
         $cek = Peluang::where('id',$peluang->id)->whereIn('sektor_id', $sektor_id)->get();
