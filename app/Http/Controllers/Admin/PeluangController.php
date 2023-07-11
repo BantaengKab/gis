@@ -140,7 +140,7 @@ class PeluangController extends Controller
         
         if ($user->id == 1 || $user->id == 2) {
 
-            $sektor = Sektor::all()->pluck("nama", "id");
+            $sektor = Sektor::all()->pluck("id");
 
         } else {
 
@@ -148,13 +148,11 @@ class PeluangController extends Controller
             foreach ($user->user_has_sektor as $uhs) {
                 $sektorCol = $sektorCol->concat($uhs->sektor);
             }
-            $sektor = $sektorCol->pluck("nama", "id");
+            $sektor = $sektorCol->pluck("id");
 
         }
-        $cek = $peluang->whereIn('sektor_id', $sektor)->first();
-        dump($cek);
-        dump($peluang);
-        if ($cek) {
+
+        if (in_array($peluang->sektor_id,$sektor)) {
             return redirect()->route('peluang.index')
             ->with('message', __('Maaf.'));
         }
