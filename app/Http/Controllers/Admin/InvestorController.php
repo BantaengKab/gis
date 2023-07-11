@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InvestorRequest;
 use Illuminate\Http\Request;
 use App\Models\Investor;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Inertia\Inertia;
 class InvestorController extends Controller
 {
 
-     public function __construct()
+    public function __construct()
     {
         $this->middleware('can:investor list', ['only' => ['index', 'show']]);
         $this->middleware('can:investor create', ['only' => ['create', 'store']]);
@@ -28,7 +29,7 @@ class InvestorController extends Controller
         $investors = (new Investor)->newQuery();
 
         if (request()->has('search')) {
-            $investors->where('nama', 'Like', '%'.request()->input('search').'%');
+            $investors->where('nama', 'Like', '%' . request()->input('search') . '%');
         }
 
         if (request()->query('sort')) {
@@ -64,15 +65,17 @@ class InvestorController extends Controller
         return Inertia::render('Admin/Investor/Create');
     }
 
-     /**
+    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(InvestorRequest $request)
     {
+        logger($request->all());
+
         Investor::create($request->all());
 
         return redirect()->route('investor.index')
-                        ->with('message', __('Investor created successfully.'));
+            ->with('message', __('Investor created successfully.'));
     }
 
     /**
@@ -80,7 +83,7 @@ class InvestorController extends Controller
      */
     public function show(Investor $investor)
     {
-         return Inertia::render('Admin/Investor/Show', [
+        return Inertia::render('Admin/Investor/Show', [
             'investor' => $investor,
         ]);
     }
@@ -103,7 +106,7 @@ class InvestorController extends Controller
         $investor->update($request->all());
 
         return redirect()->route('investor.index')
-                        ->with('message', __('Investor updated successfully.'));
+            ->with('message', __('Investor updated successfully.'));
     }
 
     /**
@@ -114,6 +117,6 @@ class InvestorController extends Controller
         $investor->delete();
 
         return redirect()->route('investor.index')
-                        ->with('message', __('Investor deleted successfully'));
+            ->with('message', __('Investor deleted successfully'));
     }
 }

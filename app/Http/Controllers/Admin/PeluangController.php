@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PeluangRequest;
 use Illuminate\Http\Request;
 use App\Models\Peluang;
 use App\Models\Sektor;
@@ -28,10 +29,10 @@ class PeluangController extends Controller
      */
     public function index()
     {
-         $peluangs = (new Peluang)->newQuery();
+        $peluangs = (new Peluang)->newQuery();
 
         if (request()->has('search')) {
-            $peluangs->where('nama', 'Like', '%'.request()->input('search').'%');
+            $peluangs->where('nama', 'Like', '%' . request()->input('search') . '%');
         }
 
         if (request()->query('sort')) {
@@ -47,7 +48,7 @@ class PeluangController extends Controller
         }
 
         $peluangs = $peluangs->paginate(5)->onEachSide(2)->appends(request()->query());
-        
+
         return Inertia::render('Admin/Peluang/Index', [
             'peluangs' => $peluangs,
             'filters' => request()->all('search'),
@@ -59,41 +60,29 @@ class PeluangController extends Controller
         ]);
     }
 
-     /**
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $sektor = Sektor::all()->pluck("nama","id");
-        $wilayah = Wilayah::all()->pluck("nama","kd_wilayah");
+        $sektor = Sektor::all()->pluck("nama", "id");
+        $wilayah = Wilayah::all()->pluck("nama", "kd_wilayah");
         return Inertia::render('Admin/Peluang/Create', [
             'sektor' => $sektor,
             'wilayah' => $wilayah,
         ]);
     }
 
-     /**
+    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PeluangRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nama' => 'required',
-             'sektor_id' => 'required',
-              'wilayah_id' => 'required',
-            // Add validation rules for other fields here
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
 
         Peluang::create($request->all());
 
         return redirect()->route('peluang.index')
-                        ->with('message', __('Peluang created successfully.'));
+            ->with('message', __('Peluang created successfully.'));
     }
 
     /**
@@ -101,13 +90,13 @@ class PeluangController extends Controller
      */
     public function show(Peluang $peluang)
     {
-         $sektor = Sektor::where("id",$peluang->sektor_id)->first();
-        $wilayah = Wilayah::where("kd_wilayah",$peluang->wilayah_id)->first();
-         return Inertia::render('Admin/Peluang/Show', [
+        $sektor = Sektor::where("id", $peluang->sektor_id)->first();
+        $wilayah = Wilayah::where("kd_wilayah", $peluang->wilayah_id)->first();
+        return Inertia::render('Admin/Peluang/Show', [
             'peluang' => $peluang,
             'sektor' => $sektor,
             'wilayah' => $wilayah,
-            
+
         ]);
     }
 
@@ -116,8 +105,8 @@ class PeluangController extends Controller
      */
     public function edit(Peluang $peluang)
     {
-        $sektor = Sektor::all()->pluck("nama","id");
-        $wilayah = Wilayah::all()->pluck("nama","kd_wilayah");
+        $sektor = Sektor::all()->pluck("nama", "id");
+        $wilayah = Wilayah::all()->pluck("nama", "kd_wilayah");
         return Inertia::render('Admin/Peluang/Edit', [
             'peluang' => $peluang,
             'sektor' => $sektor,
@@ -133,7 +122,7 @@ class PeluangController extends Controller
         $peluang->update($request->all());
 
         return redirect()->route('peluang.index')
-                        ->with('message', __('Peluang updated successfully.'));
+            ->with('message', __('Peluang updated successfully.'));
     }
 
     /**
@@ -144,6 +133,6 @@ class PeluangController extends Controller
         $peluang->delete();
 
         return redirect()->route('peluang.index')
-                        ->with('message', __('Peluang deleted successfully'));
+            ->with('message', __('Peluang deleted successfully'));
     }
 }
