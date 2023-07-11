@@ -137,11 +137,11 @@ class PeluangController extends Controller
     public function edit(Peluang $peluang)
     {
         $user = Auth::user();
-        $sektor = Sektor::all()->pluck("id","name");
+        
         if ($user->id == 1 || $user->id == 2) {
 
             $sektor_id = Sektor::all()->pluck("id");
-            
+            $sektor = Sektor::all()->pluck("nama", "id");
 
         } else {
 
@@ -149,6 +149,7 @@ class PeluangController extends Controller
             foreach ($user->user_has_sektor as $uhs) {
                 $sektorCol = $sektorCol->concat($uhs->sektor);
             }
+            $sektor = $sektorCol->pluck("nama", "id");
             $sektor_id = $sektorCol->pluck('id')->toArray();
 
         }
