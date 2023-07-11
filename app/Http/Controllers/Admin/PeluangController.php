@@ -149,6 +149,8 @@ class PeluangController extends Controller
             $sektorCol = collect();
             foreach ($user->user_has_sektor as $uhs) {
                 $sektorColId = $sektorColId->concat($uhs->sektor);
+            }
+            foreach ($user->user_has_sektor as $uhs) {
                 $sektorCol = $sektorCol->concat($uhs->sektor);
             }
             $sektor_id = $sektorColId->pluck("id");
