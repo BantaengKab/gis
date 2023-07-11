@@ -29,8 +29,23 @@ class PeluangController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         $peluangs = (new Peluang)->newQuery();
+         if ($user->id == 1 || $user->id == 2) {
 
+            $sektor = Sektor::all()->pluck("id");
+
+        } else {
+
+            $sektorCol = collect();
+            foreach ($user->user_has_sektor as $uhs) {
+                $sektorCol = $sektorCol->concat($uhs->sektor);
+            }
+            $sektor = $sektorCol->pluck("id");
+
+        }
+        
+        $peluangs->whereIn('sektor_id', $sektor);
         if (request()->has('search')) {
             $peluangs->where('nama', 'Like', '%' . request()->input('search') . '%');
         }
@@ -121,7 +136,22 @@ class PeluangController extends Controller
      */
     public function edit(Peluang $peluang)
     {
-        $sektor = Sektor::all()->pluck("nama", "id");
+        $user = Auth::user();
+        
+        if ($user->id == 1 || $user->id == 2) {
+
+            $sektor = Sektor::all()->pluck("nama", "id");
+
+        } else {
+
+            $sektorCol = collect();
+            foreach ($user->user_has_sektor as $uhs) {
+                $sektorCol = $sektorCol->concat($uhs->sektor);
+            }
+            $sektor = $sektorCol->pluck("nama", "id");
+
+        }
+
         $wilayah = Wilayah::all()->pluck("nama", "kd_wilayah");
         return Inertia::render('Admin/Peluang/Edit', [
             'peluang' => $peluang,
