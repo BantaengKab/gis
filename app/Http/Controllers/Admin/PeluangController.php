@@ -152,6 +152,8 @@ class PeluangController extends Controller
 
         }
         $cek = $peluang->whereIn('sektor_id', $sektor)->first();
+        logger($cek);
+        logger($peluang);
         if ($cek) {
             return redirect()->route('peluang.index')
             ->with('message', __('Maaf.'));
