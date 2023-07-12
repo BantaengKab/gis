@@ -156,7 +156,8 @@ function destroy(id) {
                                 {{ forminvestasi.nilai_invest }}
                             </td>
                             <td data-label="Mata Uang">
-                                {{ forminvestasi.mata_uang }}
+                                {% if forminvestasi.mata_uang == "1" %} US
+                                Dollar($) {% else %} IDR(Rp.) {% endif %}
                             </td>
                             <td
                                 v-if="can.edit || can.delete"
