@@ -40,7 +40,7 @@ class SektorRequest extends FormRequest
 
 
         return [
-            'icon' => ['required','mimes:jpeg,jpg,png|max:2000'],
+            'icon' => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'nama' => ['required', 'string'],
 
         ];
