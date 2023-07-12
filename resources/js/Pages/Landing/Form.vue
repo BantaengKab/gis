@@ -24,6 +24,7 @@ import BodyLanding from "../../Components/Landing/Body.vue";
 import NavbarLanding from "../../Components/Landing/NavbarLanding.vue";
 import FooterLanding from "../../Components/Landing/FooterLanding.vue";
 import { Head, Link } from "@inertiajs/vue3";
+import axios from "axios";
 
 const selectOptions = [
     { id: 1, label: "Business development" },
@@ -60,16 +61,24 @@ const form = reactive({
     tindak_lanjut: "",
 });
 
-const customElementsForm = reactive({
-    checkbox: ["lorem"],
-    radio: "one",
-    radio2: "one",
-    switch: ["one"],
-    file: null,
-});
-
-const submit = () => {
-    //
+const submitForm = () => {
+    console.log(form);
+    axios
+        .post("/form-submit", form) // Change the URL to your Laravel API endpoint
+        .then((response) => {
+            // Handle the successful response if needed
+            console.log(response.data);
+        })
+        .catch((error) => {
+            if (error.response.status === 422) {
+                const validationErrors = error.response.data.errors;
+                // Handle validation errors, such as displaying error messages
+                console.log(validationErrors);
+            } else {
+                // Handle other types of errors
+                console.error(error);
+            }
+        });
 };
 
 // const formStatusWithHeader = ref(true);
@@ -322,32 +331,10 @@ const formStatusSubmit = () => {
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
     data() {
         return {};
     },
-    methods: {
-        submitForm() {
-            console.log(form);
-            axios
-                .post("/form-submit", form) // Change the URL to your Laravel API endpoint
-                .then((response) => {
-                    // Handle the successful response if needed
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    if (error.response.status === 422) {
-                        const validationErrors = error.response.data.errors;
-                        // Handle validation errors, such as displaying error messages
-                        console.log(validationErrors);
-                    } else {
-                        // Handle other types of errors
-                        console.error(error);
-                    }
-                });
-        },
-    },
+    methods: {},
 };
 </script>
