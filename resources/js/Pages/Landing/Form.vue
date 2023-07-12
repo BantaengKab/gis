@@ -346,8 +346,14 @@ export default {
                     console.log(response.data);
                 })
                 .catch((error) => {
-                    // Handle any errors that occurred during the API request
-                    console.error(error);
+                    if (error.response.status === 422) {
+                        const validationErrors = error.response.data.errors;
+                        // Handle validation errors, such as displaying error messages
+                        console.log(validationErrors);
+                    } else {
+                        // Handle other types of errors
+                        console.error(error);
+                    }
                 });
         },
     },
