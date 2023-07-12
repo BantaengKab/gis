@@ -69,34 +69,36 @@ class LandingController extends Controller
     public function submit(Request $request)
     {
         // Validate the incoming form data
-        $validatedData = $request->validate([
-            'tgl_pertemuan' => 'required|date',
-            'lokasi' => 'required|string',
-            'nama' => 'required|string',
-            'jabatan' => 'required|string',
-            'no_telp' => 'required|string',
-            'email' => 'required|email',
-            'alamat' => 'required|string',
-            'desk_usaha' => 'required|string',
-            'perusahaan' => 'required|string',
-            'bidang_usaha' => 'required|string',
-            'pref_lokasi' => 'required|string',
-            'negara' => 'required|string',
-            'stat_inves' => 'required|string',
-            'nilai_invest' => 'required|numeric',
-            'mata_uang' => 'required|string',
-            'tki_tot' => 'required|integer',
-            'tki_rencana' => 'required|integer',
-            'tki_eksis' => 'required|integer',
-            'tka_tot' => 'required|integer',
-            'tka_rencana' => 'required|integer',
-            'tka_eksis' => 'required|integer',
-            'induk_perusahaan' => 'nullable|string',
-            'informasi' => 'required|string',
-            'desk_proy' => 'required|string',
-            'kendala' => 'required|string',
-            'tindak_lanjut' => 'required|string',
-        ]);
+        // $validatedData = $request->validate([
+        //     'tgl_pertemuan' => 'required|date',
+        //     'lokasi' => 'required|string',
+        //     'nama' => 'required|string',
+        //     'jabatan' => 'required|string',
+        //     'no_telp' => 'required|string',
+        //     'email' => 'required|email',
+        //     'alamat' => 'required|string',
+        //     'desk_usaha' => 'required|string',
+        //     'perusahaan' => 'required|string',
+        //     'bidang_usaha' => 'required|string',
+        //     'pref_lokasi' => 'required|string',
+        //     'negara' => 'required|string',
+        //     'stat_inves' => 'required|string',
+        //     'nilai_invest' => 'required|numeric',
+        //     'mata_uang' => 'required|string',
+        //     'tki_tot' => 'required|integer',
+        //     'tki_rencana' => 'required|integer',
+        //     'tki_eksis' => 'required|integer',
+        //     'tka_tot' => 'required|integer',
+        //     'tka_rencana' => 'required|integer',
+        //     'tka_eksis' => 'required|integer',
+        //     'induk_perusahaan' => 'nullable|string',
+        //     'informasi' => 'required|string',
+        //     'desk_proy' => 'required|string',
+        //     'kendala' => 'required|string',
+        //     'tindak_lanjut' => 'required|string',
+        // ]);
+
+        $validatedData = $request->all();
 
         // Store the validated form data in the database
         $formSubmission = FormInvestasi::create($validatedData);
