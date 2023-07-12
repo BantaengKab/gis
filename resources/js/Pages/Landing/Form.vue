@@ -196,7 +196,7 @@ const formStatusSubmit = () => {
 
                     <div class="pb-6">
                         <FormCheckRadioGroup
-                            v-model="Form.mata_uang"
+                            v-model="form.mata_uang"
                             type="radio"
                             :options="{ one: 'US Dollar', two: 'Rp' }"
                         />
