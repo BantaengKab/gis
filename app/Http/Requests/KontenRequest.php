@@ -40,7 +40,7 @@ class KontenRequest extends FormRequest
 
 
         return [
-            'img' => ['required', 'image','mimes:jpeg,jpg,png|max:2000'],
+            'img' => ['required','mimes:jpeg,jpg,png|max:2000'],
             'nama' => ['required', 'string'],
             'desc' => ['required'],
             'no_urut' => ['required'],
