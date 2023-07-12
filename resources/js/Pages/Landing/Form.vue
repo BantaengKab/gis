@@ -31,7 +31,7 @@ const selectOptions = [
     { id: 3, label: "Sales" },
 ];
 
-const form = reactive({
+const form = ref({
     tgl_pertemuan: "",
     lokasi: "",
     nama: "",
@@ -74,7 +74,7 @@ const submit = () => {
 
 // const formStatusWithHeader = ref(true);
 
-const formStatusCurrent = ref(0);
+// const formStatusCurrent = ref(0);
 
 const formStatusOptions = ["info", "success", "danger", "warning"];
 
@@ -326,36 +326,7 @@ import axios from "axios";
 
 export default {
     data() {
-        return {
-            form: {
-                tgl_pertemuan: "",
-                lokasi: "sa",
-                nama: "",
-                jabatan: "",
-                no_telp: "",
-                email: "",
-                alamat: "",
-                desk_usaha: "",
-                perusahaan: "",
-                bidang_usaha: "",
-                pref_lokasi: "",
-                negara: "",
-                stat_inves: "",
-                nilai_invest: "",
-                mata_uang: "",
-                tki_tot: "",
-                tki_rencana: "",
-                tki_eksis: "",
-                tka_tot: "",
-                tka_rencana: "",
-                tka_eksis: "",
-                induk_perusahaan: "",
-                informasi: "",
-                desk_proy: "",
-                kendala: "",
-                tindak_lanjut: "",
-            },
-        };
+        return {};
     },
     methods: {
         submitForm() {
