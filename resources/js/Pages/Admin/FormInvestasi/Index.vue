@@ -137,26 +137,26 @@ function destroy(id) {
                                     "
                                     class="no-underline hover:underline text-cyan-600 dark:text-cyan-400"
                                 >
-                                    {{ peluang.tgl_pertemuan }}
+                                    {{ forminvestasi.tgl_pertemuan }}
                                 </Link>
                             </td>
                             <td data-label="Lokasi">
-                                {{ peluang.lokasi }}
+                                {{ forminvestasi.lokasi }}
                             </td>
                             <td data-label="Nama">
-                                {{ peluang.nama }}
+                                {{ forminvestasi.nama }}
                             </td>
                             <td data-label="Perusahaan">
-                                {{ peluang.perusahaan }}
+                                {{ forminvestasi.perusahaan }}
                             </td>
                             <td data-label="Bidang Usaha">
-                                {{ peluang.bidang_usaha }}
+                                {{ forminvestasi.bidang_usaha }}
                             </td>
                             <td data-label="Nilai Invest">
-                                {{ peluang.nilai_invest }}
+                                {{ forminvestasi.nilai_invest }}
                             </td>
                             <td data-label="Mata Uang">
-                                {{ peluang.mata_uang }}
+                                {{ forminvestasi.mata_uang }}
                             </td>
                             <td
                                 v-if="can.edit || can.delete"
