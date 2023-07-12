@@ -143,6 +143,17 @@ const formStatusSubmit = () => {
     color: red;
     margin-bottom: 5px;
 }
+
+/* Additional styles for validation error messages */
+.validation-errors li::before {
+    content: "⚠";
+    margin-right: 5px;
+}
+
+.validation-errors li {
+    display: flex;
+    align-items: center;
+}
 </style>
 
 <template>
