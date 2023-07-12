@@ -68,6 +68,7 @@ const submitForm = () => {
         .then((response) => {
             // Handle the successful response if needed
             console.log(response.data);
+            showSuccessMessage.value = true;
         })
         .catch((error) => {
             if (error.response.status === 422) {
@@ -81,6 +82,8 @@ const submitForm = () => {
         });
 };
 
+const showSuccessMessage = ref(false);
+
 // const formStatusWithHeader = ref(true);
 
 // const formStatusCurrent = ref(0);
@@ -93,6 +96,13 @@ const formStatusSubmit = () => {
         : 0;
 };
 </script>
+
+<style>
+.success-message {
+    color: green;
+    margin-top: 10px;
+}
+</style>
 
 <template>
     <Head title="GIS" />
@@ -322,6 +332,9 @@ const formStatusSubmit = () => {
                             />
                         </BaseButtons>
                     </template>
+                    <div v-if="showSuccessMessage" class="success-message">
+                        Form submitted successfully!
+                    </div>
                 </CardBox>
             </div>
         </div>
