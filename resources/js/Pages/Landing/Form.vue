@@ -64,12 +64,12 @@ const form = reactive({
 const validationErrors = reactive({});
 
 const submitForm = () => {
-    console.log(form);
+    // console.log(form);
     axios
         .post("/form-submit", form) // Change the URL to your Laravel API endpoint
         .then((response) => {
             // Handle the successful response if needed
-            console.log(response.data);
+            // console.log(response.data);
             showSuccessMessage.value = true;
             resetForm();
         })
