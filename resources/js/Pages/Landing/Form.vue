@@ -204,7 +204,7 @@ const formStatusSubmit = () => {
                 </CardBox>
             </div>
             <div class="border rounded-lg">
-                <CardBox form form @submit.prevent="submitForm">
+                <CardBox form @submit.prevent="submitForm">
                     <FormField label="Investment Status/Status Investasi">
                         <FormCheckRadioGroup
                             v-model="form.stat_inves"
