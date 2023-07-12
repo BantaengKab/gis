@@ -75,7 +75,7 @@ const formStatusSubmit = () => {
             main
         >
             <BaseButton
-                href="https://gis.galapattacreation.com/peta"
+                href="https://investasi.bantaengkab.go.id/peta"
                 target="_blank"
                 label="Lihat Peta Potensi"
                 color="contrast"
@@ -88,11 +88,16 @@ const formStatusSubmit = () => {
             <div class="border rounded-lg">
                 <CardBox>
                     <FormField label="Meeting date/Tanggal Pertemuan">
-                        <FormControl :icon="mdiCalendar" type="date" />
+                        <FormControl
+                            v-model="form.tgl_pertemuan"
+                            :icon="mdiCalendar"
+                            type="date"
+                        />
                     </FormField>
 
                     <FormField label="Venue/Lokasi Pertemuan">
                         <FormControl
+                            v-model="form.lokasi"
                             type="textarea"
                             placeholder="Venue/Lokasi Pertemuan"
                         />
@@ -100,32 +105,32 @@ const formStatusSubmit = () => {
 
                     <FormField label="Full Name/Nama Lengkap">
                         <FormControl
-                            v-model="form.phone"
+                            v-model="form.nama"
                             placeholder="Full Name/Nama Lengkap"
                         />
                     </FormField>
 
                     <FormField label="Job Tittle/Jabatan">
                         <FormControl
-                            v-model="form.phone"
+                            v-model="form.jabatan"
                             placeholder="Job Tittle/Jabatan"
                         />
                     </FormField>
 
                     <FormField label="Phone/Mobile/Telepon">
                         <FormControl
-                            v-model="form.phone"
+                            v-model="form.no_telp"
                             placeholder="Phone/Mobile/Telepon"
                         />
                     </FormField>
 
                     <FormField label="Email">
-                        <FormControl v-model="form.phone" placeholder="Email" />
+                        <FormControl v-model="form.email" placeholder="Email" />
                     </FormField>
 
                     <FormField label="Address/Alamat">
                         <FormControl
-                            v-model="form.phone"
+                            v-model="form.alamat"
                             placeholder="Address/Alamat"
                         />
                     </FormField>
@@ -134,6 +139,7 @@ const formStatusSubmit = () => {
                         label="Business Description (Existing/Intended)/Deskripsi Usaha (Eksisting/Rencana)"
                     >
                         <FormControl
+                            v-model="form.desk_usaha"
                             type="textarea"
                             placeholder="Business Description (Existing/Intended)/Deskripsi Usaha (Eksisting/Rencana)"
                         />
@@ -141,28 +147,28 @@ const formStatusSubmit = () => {
 
                     <FormField label="Company Name/Nama Perusahaan">
                         <FormControl
-                            v-model="form.phone"
+                            v-model="form.perusahaan"
                             placeholder="Company Name/Nama Perusahaan"
                         />
                     </FormField>
 
                     <FormField label="Business Field/Bidang Usaha">
                         <FormControl
-                            v-model="form.phone"
+                            v-model="form.bidang_usaha"
                             placeholder="Business Field/Bidang Usaha"
                         />
                     </FormField>
 
                     <FormField label="Prefered Location/Preferensi Lokasi">
                         <FormControl
-                            v-model="form.phone"
+                            v-model="form.pref_lokasi"
                             placeholder="Prefered Location/Preferensi Lokasi"
                         />
                     </FormField>
 
                     <FormField label="Country Origin/Negara Asal">
                         <FormControl
-                            v-model="form.phone"
+                            v-model="form.negara"
                             placeholder="Country Origin/Negara Asal"
                         />
                     </FormField>
@@ -172,7 +178,7 @@ const formStatusSubmit = () => {
                 <CardBox form @submit.prevent="submit">
                     <FormField label="Investment Status/Status Investasi">
                         <FormCheckRadioGroup
-                            v-model="customElementsForm.radio"
+                            v-model="Form.stat_inves"
                             name="sample-radio"
                             type="radio"
                             :options="{
@@ -183,14 +189,14 @@ const formStatusSubmit = () => {
                     </FormField>
                     <FormField label="Capital Amount/Nilai Investasi">
                         <FormControl
-                            v-model="form.phone"
+                            v-model="form.nilai_invest"
                             placeholder="Capital Amount/Nilai Investasi"
                         />
                     </FormField>
 
                     <div class="pb-6">
                         <FormCheckRadioGroup
-                            v-model="customElementsForm.radio2"
+                            v-model="Form.mata_uang"
                             type="radio"
                             :options="{ one: 'US Dollar', two: 'Rp' }"
                         />
@@ -200,19 +206,19 @@ const formStatusSubmit = () => {
                         <div class="ss">
                             <FormField label="Total Local Worker/Jumlah TKI">
                                 <FormControl
-                                    v-model="form.phone"
+                                    v-model="form.tki_tot"
                                     placeholder="Total Local Worker/Jumlah TKI"
                                 />
                             </FormField>
                             <FormField label="Plan/Rencana">
                                 <FormControl
-                                    v-model="form.phone"
+                                    v-model="form.tki_rencana"
                                     placeholder="Plan/Rencana"
                                 />
                             </FormField>
                             <FormField label="Existing/Eksisting">
                                 <FormControl
-                                    v-model="form.phone"
+                                    v-model="form.tki_eksis"
                                     placeholder="Existing/Eksisting"
                                 />
                             </FormField>
@@ -220,19 +226,19 @@ const formStatusSubmit = () => {
                         <div class="ss">
                             <FormField label="Total Foreign Worker/Jumlah TKA">
                                 <FormControl
-                                    v-model="form.phone"
+                                    v-model="form.tka_tot"
                                     placeholder="Total Foreign Worker/Jumlah TKA"
                                 />
                             </FormField>
                             <FormField label="Plan/Rencana">
                                 <FormControl
-                                    v-model="form.phone"
+                                    v-model="form.tka_rencana"
                                     placeholder="Plan/Rencana"
                                 />
                             </FormField>
                             <FormField label="Existing/Eksisting">
                                 <FormControl
-                                    v-model="form.phone"
+                                    v-model="form.tka_eksis"
                                     placeholder="Existing/Eksisting"
                                 />
                             </FormField>
@@ -243,12 +249,13 @@ const formStatusSubmit = () => {
                         label="Parent Company (if any)/Induk Perusahaan (jika ada)"
                     >
                         <FormControl
-                            v-model="form.phone"
+                            v-model="form.induk_perusahaan"
                             placeholder="Parent Company (if any)/Induk Perusahaan (jika ada)"
                         />
                     </FormField>
                     <FormField label="Other Information/Informasi Lain">
                         <FormControl
+                            v-model="form.informasi"
                             type="textarea"
                             placeholder="Other Information/Informasi Lain"
                         />
@@ -257,18 +264,21 @@ const formStatusSubmit = () => {
                         label="Business Plan, Project Description/Rencana Bisnis, Deskripsi Proyek "
                     >
                         <FormControl
+                            v-model="form.desk_proy"
                             type="textarea"
                             placeholder="Business Plan, Project Description/Rencana Bisnis, Deskripsi Proyek "
                         />
                     </FormField>
                     <FormField label="Obstacle/Kendala  ">
                         <FormControl
+                            v-model="form.kendala"
                             type="textarea"
                             placeholder="Obstacle/Kendala  "
                         />
                     </FormField>
                     <FormField label="Required Action/Tindak Lanjut  ">
                         <FormControl
+                            v-model="form.tindak_lanjut"
                             type="textarea"
                             placeholder="Required Action/Tindak Lanjut  "
                         />
@@ -280,6 +290,7 @@ const formStatusSubmit = () => {
                                 type="submit"
                                 color="info"
                                 label="Submit"
+                                @click="submitForm()"
                             />
                         </BaseButtons>
                     </template>
@@ -291,9 +302,54 @@ const formStatusSubmit = () => {
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-    data: function () {
-        return {};
+    data() {
+        return {
+            form: {
+                tgl_pertemuan: "",
+                lokasi: "",
+                nama: "",
+                jabatan: "",
+                no_telp: "",
+                email: "",
+                alamat: "",
+                desk_usaha: "",
+                perusahaan: "",
+                bidang_usaha: "",
+                pref_lokasi: "",
+                negara: "",
+                stat_inves: "",
+                nilai_invest: "",
+                mata_uang: "",
+                tki_tot: "",
+                tki_rencana: "",
+                tki_eksis: "",
+                tka_tot: "",
+                tka_rencana: "",
+                tka_eksis: "",
+                induk_perusahaan: "",
+                informasi: "",
+                desk_proy: "",
+                kendala: "",
+                tindak_lanjut: "",
+            },
+        };
+    },
+    methods: {
+        submitForm() {
+            axios
+                .post("/form-submit", this.form) // Change the URL to your Laravel API endpoint
+                .then((response) => {
+                    // Handle the successful response if needed
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    // Handle any errors that occurred during the API request
+                    console.error(error);
+                });
+        },
     },
 };
 </script>

@@ -95,7 +95,7 @@ const form = useForm({
                 </FormField>
 
                 <FormField
-                    label="NIB"
+                    label="NIB(Jika Ada)"
                     :class="{ 'text-red-400': form.errors.nib }"
                 >
                     <FormControl
@@ -153,7 +153,7 @@ const form = useForm({
                 </FormField>
 
                 <FormField
-                    label="Kontak"
+                    label="Kontak(Jika Ada)"
                     :class="{ 'text-red-400': form.errors.kontak }"
                 >
                     <FormControl

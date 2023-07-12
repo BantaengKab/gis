@@ -26,9 +26,11 @@ use Inertia\Inertia;
 Route::get('/', [App\Http\Controllers\LandingController::class, 'beranda'])->name('/');
 Route::get('investasi', [App\Http\Controllers\LandingController::class, 'invest'])->name('investasi');
 
+
 Route::get('form', function () {
     return Inertia::render('Landing/Form');
 })->name('form');
+Route::post('/form-submit', [App\Http\Controllers\LandingController::class, 'submit']);
 
 Route::get('peta', function () {
     return Inertia::render('Landing/Peta');
