@@ -54,7 +54,6 @@ function destroy(id) {
                 title="Formulir Investasi"
                 main
             >
-                
             </SectionTitleLineWithButton>
             <NotificationBar
                 v-if="$page.props.flash.message"
@@ -87,27 +86,39 @@ function destroy(id) {
                 <table>
                     <thead>
                         <tr>
-                               <th>
-                                <Sort label="Tanggal Pertemuan" attribute="tgl_pertemuan" />
-                                </th>
-                                <th>
+                            <th>
+                                <Sort
+                                    label="Tanggal Pertemuan"
+                                    attribute="tgl_pertemuan"
+                                />
+                            </th>
+                            <th>
                                 <Sort label="Lokasi" attribute="lokasi" />
-                                </th>
-                                <th>
+                            </th>
+                            <th>
                                 <Sort label="Nama" attribute="nama" />
-                                </th>
-                                <th>
-                                <Sort label="Perusahaan" attribute="perusahaan" />
-                                </th>
-                                <th>
-                                <Sort label="Bidang Usaha" attribute="bidang_usaha" />
-                                </th>
-                                <th>
-                                <Sort label="Nilai Invest" attribute="nilai_invest" />
-                                </th>
-                                <th>
+                            </th>
+                            <th>
+                                <Sort
+                                    label="Perusahaan"
+                                    attribute="perusahaan"
+                                />
+                            </th>
+                            <th>
+                                <Sort
+                                    label="Bidang Usaha"
+                                    attribute="bidang_usaha"
+                                />
+                            </th>
+                            <th>
+                                <Sort
+                                    label="Nilai Invest"
+                                    attribute="nilai_invest"
+                                />
+                            </th>
+                            <th>
                                 <Sort label="Mata Uang" attribute="mata_uang" />
-                                </th>
+                            </th>
                         </tr>
                     </thead>
 
@@ -116,37 +127,45 @@ function destroy(id) {
                             v-for="forminvestasi in forminvestasis.data"
                             :key="forminvestasi.id"
                         >
-                           <td data-label="Tgl Pertemuan">
+                            <td data-label="Tgl Pertemuan">
                                 <Link
-                                    :href="route('forminvestasi.show', forminvestasi.id)"
+                                    :href="
+                                        route(
+                                            'forminvestasi.show',
+                                            forminvestasi.id
+                                        )
+                                    "
                                     class="no-underline hover:underline text-cyan-600 dark:text-cyan-400"
                                 >
-                                {{ peluang.tgl_pertemuan }}
-                                 </Link>
-                                </td>
-                                <td data-label="Lokasi">
+                                    {{ peluang.tgl_pertemuan }}
+                                </Link>
+                            </td>
+                            <td data-label="Lokasi">
                                 {{ peluang.lokasi }}
-                                </td>
-                                <td data-label="Nama">
+                            </td>
+                            <td data-label="Nama">
                                 {{ peluang.nama }}
-                                </td>
-                                <td data-label="Perusahaan">
+                            </td>
+                            <td data-label="Perusahaan">
                                 {{ peluang.perusahaan }}
-                                </td>
-                                <td data-label="Bidang Usaha">
+                            </td>
+                            <td data-label="Bidang Usaha">
                                 {{ peluang.bidang_usaha }}
-                                </td>
-                                <td data-label="Nilai Invest">
+                            </td>
+                            <td data-label="Nilai Invest">
                                 {{ peluang.nilai_invest }}
-                                </td>
-                                <td data-label="Mata Uang">
+                            </td>
+                            <td data-label="Mata Uang">
                                 {{ peluang.mata_uang }}
-                                </td>
+                            </td>
+                            <td
+                                v-if="can.edit || can.delete"
+                                class="before:hidden lg:w-1 whitespace-nowrap"
+                            >
                                 <BaseButtons
                                     type="justify-start lg:justify-end"
                                     no-wrap
                                 >
-                                   
                                     <BaseButton
                                         v-if="can.delete"
                                         color="danger"
