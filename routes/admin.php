@@ -13,6 +13,10 @@ Route::group([
     Route::resource('investor', 'InvestorController');
     Route::resource('peluang', 'PeluangController');
     Route::resource('investasi', 'InvestasiController');
+    Route::resource('forminvestasi', 'FormInvestasiController')->except([
+        'create',
+        'edit',
+    ]);
     Route::resource('menu', 'MenuController')->except([
         'show'
     ]);
