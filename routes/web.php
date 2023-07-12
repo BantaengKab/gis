@@ -30,7 +30,7 @@ Route::get('investasi', [App\Http\Controllers\LandingController::class, 'invest'
 Route::get('form', function () {
     return Inertia::render('Landing/Form');
 })->name('form');
-Route::post('/form-submit', [App\Http\Controllers\LandingController::class, 'submit']);
+Route::post('/form-submit', [App\Http\Controllers\LandingController::class, 'submit'])->name('form-submit');
 
 Route::get('peta', function () {
     return Inertia::render('Landing/Peta');

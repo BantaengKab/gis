@@ -195,7 +195,7 @@ const formStatusSubmit = () => {
                 </CardBox>
             </div>
             <div class="border rounded-lg">
-                <CardBox form @submit.prevent="submit">
+                <CardBox form @submit.prevent="form.post(route('form-submit'))">
                     <FormField label="Investment Status/Status Investasi">
                         <FormCheckRadioGroup
                             v-model="form.stat_inves"
@@ -310,7 +310,6 @@ const formStatusSubmit = () => {
                                 type="submit"
                                 color="info"
                                 label="Submit"
-                                @click="submitForm()"
                             />
                         </BaseButtons>
                     </template>
