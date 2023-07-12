@@ -325,6 +325,38 @@ const formStatusSubmit = () => {
 import axios from "axios";
 
 export default {
+    data() {
+        return {
+            form: {
+                tgl_pertemuan: "",
+                lokasi: "sa",
+                nama: "",
+                jabatan: "",
+                no_telp: "",
+                email: "",
+                alamat: "",
+                desk_usaha: "",
+                perusahaan: "",
+                bidang_usaha: "",
+                pref_lokasi: "",
+                negara: "",
+                stat_inves: "",
+                nilai_invest: "",
+                mata_uang: "",
+                tki_tot: "",
+                tki_rencana: "",
+                tki_eksis: "",
+                tka_tot: "",
+                tka_rencana: "",
+                tka_eksis: "",
+                induk_perusahaan: "",
+                informasi: "",
+                desk_proy: "",
+                kendala: "",
+                tindak_lanjut: "",
+            },
+        };
+    },
     methods: {
         submitForm() {
             console.log(this.form);
