@@ -82,6 +82,12 @@ const submitForm = () => {
         });
 };
 
+const resetForm = () => {
+    for (const key in form) {
+        form[key] = "";
+    }
+};
+
 const showSuccessMessage = ref(false);
 
 // const formStatusWithHeader = ref(true);
@@ -99,8 +105,15 @@ const formStatusSubmit = () => {
 
 <style>
 .success-message {
-    color: green;
+    background-color: #c8e6c9;
+    padding: 10px;
     margin-top: 10px;
+    border-radius: 4px;
+}
+
+.success-text {
+    font-size: 18px;
+    color: green;
 }
 </style>
 
@@ -333,7 +346,9 @@ const formStatusSubmit = () => {
                         </BaseButtons>
                     </template>
                     <div v-if="showSuccessMessage" class="success-message">
-                        Form submitted successfully!
+                        <span class="success-text"
+                            >Form submitted successfully!</span
+                        >
                     </div>
                 </CardBox>
             </div>
