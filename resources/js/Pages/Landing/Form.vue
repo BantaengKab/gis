@@ -32,12 +32,32 @@ const selectOptions = [
 ];
 
 const form = reactive({
-    name: "John Doe",
-    email: "john.doe@example.com",
-    phone: "",
-    department: selectOptions[0],
-    subject: "",
-    question: "",
+    tgl_pertemuan: "",
+    lokasi: "",
+    nama: "",
+    jabatan: "",
+    no_telp: "",
+    email: "",
+    alamat: "",
+    desk_usaha: "",
+    perusahaan: "",
+    bidang_usaha: "",
+    pref_lokasi: "",
+    negara: "",
+    stat_inves: "",
+    nilai_invest: "",
+    mata_uang: "",
+    tki_tot: "",
+    tki_rencana: "",
+    tki_eksis: "",
+    tka_tot: "",
+    tka_rencana: "",
+    tka_eksis: "",
+    induk_perusahaan: "",
+    informasi: "",
+    desk_proy: "",
+    kendala: "",
+    tindak_lanjut: "",
 });
 
 const customElementsForm = reactive({
@@ -182,8 +202,8 @@ const formStatusSubmit = () => {
                             name="sample-radio"
                             type="radio"
                             :options="{
-                                one: 'New (Greenfield)/Baru',
-                                two: 'Expansion (Brownfield)/Ekspansi',
+                                1: 'New (Greenfield)/Baru',
+                                2: 'Expansion (Brownfield)/Ekspansi',
                             }"
                         />
                     </FormField>
@@ -198,7 +218,7 @@ const formStatusSubmit = () => {
                         <FormCheckRadioGroup
                             v-model="form.mata_uang"
                             type="radio"
-                            :options="{ one: 'US Dollar', two: 'Rp' }"
+                            :options="{ 1: 'US Dollar', 2: 'Rp' }"
                         />
                     </div>
 
@@ -305,38 +325,6 @@ const formStatusSubmit = () => {
 import axios from "axios";
 
 export default {
-    data() {
-        return {
-            form: {
-                tgl_pertemuan: "",
-                lokasi: "",
-                nama: "",
-                jabatan: "",
-                no_telp: "",
-                email: "",
-                alamat: "",
-                desk_usaha: "",
-                perusahaan: "",
-                bidang_usaha: "",
-                pref_lokasi: "",
-                negara: "",
-                stat_inves: "",
-                nilai_invest: "",
-                mata_uang: "",
-                tki_tot: "",
-                tki_rencana: "",
-                tki_eksis: "",
-                tka_tot: "",
-                tka_rencana: "",
-                tka_eksis: "",
-                induk_perusahaan: "",
-                informasi: "",
-                desk_proy: "",
-                kendala: "",
-                tindak_lanjut: "",
-            },
-        };
-    },
     methods: {
         submitForm() {
             axios
