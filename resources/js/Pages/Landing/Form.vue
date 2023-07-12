@@ -383,6 +383,13 @@ const formStatusSubmit = () => {
                                 label="Submit"
                             />
                         </BaseButtons>
+                        <BaseButtons>
+                            <BaseButton
+                                color="info"
+                                label="Reset"
+                                @click="resetForm()"
+                            />
+                        </BaseButtons>
                     </template>
                     <div v-if="showSuccessMessage" class="success-message">
                         <span class="success-text"
@@ -390,12 +397,9 @@ const formStatusSubmit = () => {
                         >
                     </div>
                     <div v-if="showValidationErrors" class="validation-errors">
-                        <ul
-                            v-for="(error, field) in validationErrors"
-                            :key="field"
-                        >
-                            <li v-for="errors in error">
-                                {{ errors }}
+                        <ul v-for="error in validationErrors" :key="field">
+                            <li v-for="(errors, field) in error" :key="field">
+                                {{ field }} : {{ errors }}
                             </li>
                         </ul>
                     </div>
