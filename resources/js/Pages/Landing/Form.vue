@@ -91,6 +91,8 @@ const resetForm = () => {
     for (const key in form) {
         form[key] = "";
     }
+    showSuccessMessage.value = false;
+    showValidationErrors.value = false;
 };
 
 const showSuccessMessage = ref(false);
@@ -382,8 +384,6 @@ const formStatusSubmit = () => {
                                 color="info"
                                 label="Submit"
                             />
-                        </BaseButtons>
-                        <BaseButtons>
                             <BaseButton
                                 color="info"
                                 label="Reset"
