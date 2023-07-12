@@ -14,7 +14,6 @@ defineProps({
     laravelVersion: String,
     phpVersion: String,
 });
-
 </script>
 
 <template>
@@ -25,28 +24,35 @@ defineProps({
 
         <div class="grid pt-20 grid-cols-6 gap-6 lg:gap-8">
             <div class="col-span-2">
-                <select v-model="selectedParent" @change="loadChildOptions" class="px-3 py-2 max-w-full focus:ring focus:outline-none rounded w-full dark:placeholder-gray-400 h-12 border bg-white dark:bg-slate-800 border-gray-700">
-                        <option value="">Pilih Kecamatan</option>
-                        <option
-                            v-for="parent in parents"
-                            :value="parent.kd_wilayah"
-                            :key="parent.kd_wilayah"
-                        >
-                            {{ parent.nama }}
-                        </option>
-                    </select>
+                <select
+                    v-model="selectedParent"
+                    @change="loadChildOptions"
+                    class="px-3 py-2 max-w-full focus:ring focus:outline-none rounded w-full dark:placeholder-gray-400 h-12 border bg-white dark:bg-slate-800 border-gray-700"
+                >
+                    <option value="">Pilih Kecamatan</option>
+                    <option
+                        v-for="parent in parents"
+                        :value="parent.kd_wilayah"
+                        :key="parent.kd_wilayah"
+                    >
+                        {{ parent.nama }}
+                    </option>
+                </select>
             </div>
             <div class="col-span-2">
-               <select v-model="selectedChild" class="px-3 py-2 max-w-full focus:ring focus:outline-none rounded w-full dark:placeholder-gray-400 h-12 border bg-white dark:bg-slate-800 border-gray-700">
-                        <option value="">Pilih Kelurahan</option>
-                        <option
-                            v-for="child in children"
-                            :value="child.kd_wilayah"
-                            :key="child.kd_wilayah"
-                        >
-                            {{ child.nama }}
-                        </option>
-                    </select>
+                <select
+                    v-model="selectedChild"
+                    class="px-3 py-2 max-w-full focus:ring focus:outline-none rounded w-full dark:placeholder-gray-400 h-12 border bg-white dark:bg-slate-800 border-gray-700"
+                >
+                    <option value="">Pilih Kelurahan</option>
+                    <option
+                        v-for="child in children"
+                        :value="child.kd_wilayah"
+                        :key="child.kd_wilayah"
+                    >
+                        {{ child.nama }}
+                    </option>
+                </select>
             </div>
             <div class="col-span-1">
                 <button
@@ -69,7 +75,6 @@ defineProps({
             <div class="pt-4 col-span-6">
                 <div class="rounded-lg" id="mapContainer" />
             </div>
-            
         </div>
     </BodyLanding>
     <FooterLanding />
@@ -134,7 +139,7 @@ export default {
                     maxNativeZoom: 20,
                     subdomains: ["mt0", "mt1", "mt2", "mt3"],
                     attribution:
-                    "&copy; 2023 Gala Patta Creation All rights reserved.",
+                        "&copy; 2023 Gala Patta Creation All rights reserved.",
                 }
             );
 
@@ -202,8 +207,8 @@ export default {
                         style: function (feature) {
                             return { color: feature.properties.color };
                         },
-                     onEachFeature: function(feature, layer) {
-                        var popupContent = `
+                        onEachFeature: function (feature, layer) {
+                            var popupContent = `
                         <table class="border">
                             <tr>
                             <th>Nama</th>
@@ -223,10 +228,9 @@ export default {
                             </tr>
                         </table>
                         `;
-                        layer.bindPopup(popupContent);
-                    }
-                        })
-                        .addTo(self.map);
+                            layer.bindPopup(popupContent);
+                        },
+                    }).addTo(self.map);
                 })
                 .catch(function (error) {
                     console.error("Error:", error);
@@ -263,18 +267,26 @@ export default {
                             <th>Longitude</th>
                             <td>${marker.long}</td>
                             </tr>
-                            ${marker.nib ? `
+                            ${
+                                marker.nib
+                                    ? `
                             <tr>
                                 <th>Kontak</th>
                                 <td>${marker.nib}</td>
                             </tr>
-                        ` : ''}
-                             ${marker.kontak ? `
+                        `
+                                    : ""
+                            }
+                             ${
+                                 marker.kontak
+                                     ? `
                             <tr>
                                 <th>Kontak</th>
                                 <td>${marker.kontak}</td>
                             </tr>
-                        ` : ''}
+                        `
+                                     : ""
+                             }
                         </table>
                         `;
                         //IconMarker
@@ -298,8 +310,9 @@ export default {
                             )
                         ) {
                             // Jika belum ada, buat layer group baru dan tambahkan ke objek markerGroups
-                            self.markerGroups[marker.sektor.nama] =
-                                L.layerGroup();
+                            self.markerGroups[
+                                marker.sektor.nama
+                            ] = L.layerGroup();
                             // Simpan ikon dalam objek markerIcons
                             self.markerIcons[marker.sektor.nama] =
                                 marker.sektor.icon;
@@ -342,7 +355,7 @@ export default {
                     // Loop melalui data marker dan tambahkan marker ke peta
                     markers.forEach((marker) => {
                         //IconMarker
-                         var markerContent = `
+                        var markerContent = `
                         <table class="border">
                             <tr>
                             <th>Nama</th>
@@ -440,6 +453,8 @@ export default {
         reloadMap() {
             this.map.remove();
             this.initializeMap();
+            this.selectedParent = "";
+            this.selectedChild = "";
         },
 
         loadParentOptions() {
