@@ -161,7 +161,11 @@ const props = defineProps({
                                 Status Investasi
                             </td>
                             <td data-label="Stat Inves">
-                                {{ forminvestasi.stat_inves }}
+                                {{
+                                    forminvestasi.mata_uang === 1
+                                        ? "New (Greenfield)/Baru"
+                                        : "Expansion (Brownfield)/Ekspansi"
+                                }}
                             </td>
                         </tr>
                         <tr>
@@ -181,7 +185,11 @@ const props = defineProps({
                                 Mata Uang
                             </td>
                             <td data-label="Mata Uang">
-                                {{ forminvestasi.mata_uang }}
+                                {{
+                                    forminvestasi.mata_uang === 1
+                                        ? "US Dollar($)"
+                                        : "IDR(Rp.)"
+                                }}
                             </td>
                         </tr>
                         <tr>
