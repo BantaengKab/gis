@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, watch } from "vue";
 import {
     mdiBallotOutline,
     mdiAccount,
@@ -94,9 +94,11 @@ const resetForm = () => {
 };
 
 const showSuccessMessage = ref(false);
-const showValidationErrors = computed(
-    () => Object.keys(validationErrors.value).length > 0
-);
+const showValidationErrors = ref(false);
+
+watch(validationErrors, () => {
+    showValidationErrors.value = Object.keys(validationErrors.value).length > 0;
+});
 
 // const formStatusWithHeader = ref(true);
 
