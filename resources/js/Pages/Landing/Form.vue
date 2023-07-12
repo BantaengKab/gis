@@ -178,7 +178,7 @@ const formStatusSubmit = () => {
                 <CardBox form @submit.prevent="submit">
                     <FormField label="Investment Status/Status Investasi">
                         <FormCheckRadioGroup
-                            v-model="Form.stat_inves"
+                            v-model="form.stat_inves"
                             name="sample-radio"
                             type="radio"
                             :options="{
