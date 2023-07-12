@@ -144,10 +144,7 @@ const formStatusSubmit = () => {
     margin-bottom: 5px;
 }
 
-.validation-errors li .error-field {
-    font-weight: bold;
-}
-
+/* Additional styles for validation error messages */
 .validation-errors li::before {
     content: "⚠";
     margin-right: 5px;
@@ -393,13 +390,12 @@ const formStatusSubmit = () => {
                         >
                     </div>
                     <div v-if="showValidationErrors" class="validation-errors">
-                        <ul>
-                            <li
-                                v-for="(error, field) in validationErrors"
-                                :key="field"
-                            >
-                                <span class="error-field">{{ field }}:</span>
-                                {{ error[0] }}
+                        <ul
+                            v-for="(error, field) in validationErrors"
+                            :key="field"
+                        >
+                            <li v-for="errors in error">
+                                {{ errors }}
                             </li>
                         </ul>
                     </div>
