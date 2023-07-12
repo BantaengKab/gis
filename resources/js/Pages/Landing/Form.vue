@@ -195,7 +195,7 @@ const formStatusSubmit = () => {
                 </CardBox>
             </div>
             <div class="border rounded-lg">
-                <CardBox form @submit.prevent="submit">
+                <CardBox form @submit.prevent="submit" @csrf>
                     <FormField label="Investment Status/Status Investasi">
                         <FormCheckRadioGroup
                             v-model="form.stat_inves"
@@ -327,6 +327,7 @@ import axios from "axios";
 export default {
     methods: {
         submitForm() {
+            console.log(this.form);
             axios
                 .post("/form-submit", this.form) // Change the URL to your Laravel API endpoint
                 .then((response) => {
