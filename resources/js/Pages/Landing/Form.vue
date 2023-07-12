@@ -61,6 +61,8 @@ const form = reactive({
     tindak_lanjut: "",
 });
 
+const validationErrors = reactive({});
+
 const submitForm = () => {
     console.log(form);
     axios
@@ -69,12 +71,15 @@ const submitForm = () => {
             // Handle the successful response if needed
             console.log(response.data);
             showSuccessMessage.value = true;
+            resetForm();
         })
         .catch((error) => {
             if (error.response.status === 422) {
-                const validationErrors = error.response.data.errors;
-                // Handle validation errors, such as displaying error messages
-                console.log(validationErrors);
+                const { errors } = error.response.data;
+                // Set the validation errors
+                validationErrors.value = errors;
+                // Hide the success message
+                showSuccessMessage.value = false;
             } else {
                 // Handle other types of errors
                 console.error(error);
@@ -89,6 +94,9 @@ const resetForm = () => {
 };
 
 const showSuccessMessage = ref(false);
+const showValidationErrors = computed(
+    () => Object.keys(validationErrors.value).length > 0
+);
 
 // const formStatusWithHeader = ref(true);
 
@@ -114,6 +122,24 @@ const formStatusSubmit = () => {
 .success-text {
     font-size: 18px;
     color: green;
+}
+
+.validation-errors {
+    background-color: #ffcdd2;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+.validation-errors ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.validation-errors li {
+    color: red;
+    margin-bottom: 5px;
 }
 </style>
 
@@ -349,6 +375,16 @@ const formStatusSubmit = () => {
                         <span class="success-text"
                             >Form submitted successfully!</span
                         >
+                    </div>
+                    <div v-if="showValidationErrors" class="validation-errors">
+                        <ul>
+                            <li
+                                v-for="(error, field) in validationErrors"
+                                :key="field"
+                            >
+                                {{ error }}
+                            </li>
+                        </ul>
                     </div>
                 </CardBox>
             </div>
