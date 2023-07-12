@@ -145,7 +145,15 @@ function destroy(id) {
                                     "
                                     class="no-underline hover:underline text-cyan-600 dark:text-cyan-400"
                                 >
-                                    {{ investasi.rencana }}
+                                    {{
+                                        investasi.rencana.toLocaleString(
+                                            undefined,
+                                            {
+                                                style: "currency",
+                                                currency: "IDR",
+                                            }
+                                        )
+                                    }}
                                 </Link>
                             </td>
                             <td data-label="Realisasi">
@@ -155,7 +163,15 @@ function destroy(id) {
                                     "
                                     class="no-underline hover:underline text-cyan-600 dark:text-cyan-400"
                                 >
-                                    {{ investasi.realisasi }}
+                                    {{
+                                        investasi.realisasi.toLocaleString(
+                                            undefined,
+                                            {
+                                                style: "currency",
+                                                currency: "IDR",
+                                            }
+                                        )
+                                    }}
                                 </Link>
                             </td>
                             <td
