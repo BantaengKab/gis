@@ -330,9 +330,9 @@ export default {
     },
     methods: {
         submitForm() {
-            console.log(this.form);
+            console.log(form.value);
             axios
-                .post("/form-submit", this.form) // Change the URL to your Laravel API endpoint
+                .post("/form-submit", form.value) // Change the URL to your Laravel API endpoint
                 .then((response) => {
                     // Handle the successful response if needed
                     console.log(response.data);
