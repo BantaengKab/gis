@@ -31,7 +31,7 @@ const selectOptions = [
     { id: 3, label: "Sales" },
 ];
 
-const form = ref({
+const form = reactive({
     tgl_pertemuan: "",
     lokasi: "",
     nama: "",
@@ -330,9 +330,9 @@ export default {
     },
     methods: {
         submitForm() {
-            console.log(form.value);
+            console.log(form);
             axios
-                .post("/form-submit", form.value) // Change the URL to your Laravel API endpoint
+                .post("/form-submit", form) // Change the URL to your Laravel API endpoint
                 .then((response) => {
                     // Handle the successful response if needed
                     console.log(response.data);
