@@ -319,7 +319,6 @@ const formStatusSubmit = () => {
                                 type="submit"
                                 color="info"
                                 label="Submit"
-                                @click="submitForm()"
                             />
                         </BaseButtons>
                     </template>
