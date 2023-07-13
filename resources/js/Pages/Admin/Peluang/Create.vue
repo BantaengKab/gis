@@ -139,7 +139,7 @@ const form = useForm({
                 >
                     <FormControl
                         v-model="form.alamat"
-                        type="text"
+                        type="textarea"
                         placeholder="Enter Alamat"
                         :error="form.errors.alamat"
                     >
@@ -158,7 +158,7 @@ const form = useForm({
                 >
                     <FormControl
                         v-model="form.kontak"
-                        type="text"
+                        type="textarea"
                         placeholder="Enter Kontak"
                         :error="form.errors.kontak"
                     >
