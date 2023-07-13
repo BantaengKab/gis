@@ -13,7 +13,7 @@ defineProps({
             <h1 class="font-bold text-8xl/[80px]">Peta Potensi & Peluang</h1>
             <div class="inline-flex items-center pt-10 sm:pt-0">
                 <h1 class="sm:text-3xl/[70px] text-xl/[30px] font-medium">
-                    KOTA BANTAENG
+                    KABUPATEN BANTAENG
                 </h1>
             </div>
             <p class="pt-8 text-xl/[30px]">
